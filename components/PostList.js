@@ -20,7 +20,7 @@ export const ALL_POSTS_QUERY = gql`
 
 export const allPostsQueryVars = {
   skip: 0,
-  first: 20,
+  first: 42,
 }
 
 export default function PostList() {

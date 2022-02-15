@@ -32,7 +32,7 @@ function PostItem({ postData }) {
                     ·
                 </Text>
                 <Text fontSize='xs'>
-                    <ReactTimeAgo date={timestamp * 1000} locale="en-US" />
+                    <ReactTimeAgo date={timestamp * 1000} locale="en-US" timeStyle="twitter" />
                 </Text>
             </Flex>
             <Text alignSelf='center' fontSize='md'>{name}</Text>
