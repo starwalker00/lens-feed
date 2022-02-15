@@ -1,4 +1,4 @@
-import { Box, Center, Flex, Image, Text, WrapItem, VStack, HStack, Spacer, Button } from '@chakra-ui/react'
+import { Box, Center, Flex, Image, Text, WrapItem, VStack, HStack, Spacer, Button, Container, Stack, Tooltip } from '@chakra-ui/react'
 import { gql, useQuery, NetworkStatus } from '@apollo/client'
 import ErrorMessage from './ErrorMessage'
 import PostItem from './PostItem'
@@ -9,7 +9,9 @@ export const ALL_POSTS_QUERY = gql`
       id
       pubId
       profileId {
+        id
         handle
+        owner
       }
       timestamp
     }
@@ -56,17 +58,15 @@ export default function PostList() {
   const areMorePosts = false
 
   return (
-    <section>
-      <ul>
-        {allPosts.map((post, index) => (
-          <PostItem key={index} postData={post} />
-        ))}
-      </ul>
-      {areMorePosts && (
+    <Stack direction={['column']} spacing={8}>
+      {allPosts.map((post, index) => (
+        <PostItem key={index} postData={post} />
+      ))}
+      {/* {areMorePosts && (
         <Button onClick={() => loadMorePosts()} disabled={loadingMorePosts}>
           {loadingMorePosts ? 'Loading...' : 'Show More'}
         </Button>
-      )}
-    </section>
+      )} */}
+    </Stack>
   )
 }

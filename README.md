@@ -5,6 +5,7 @@
 - https://thegraph.com/docs/en/developer/graphql-api
 - https://www.apollographql.com/docs/react/
 - https://github.com/vercel/next.js/tree/canary/examples/with-apollo
+- https://css-tricks.com/snippets/css/a-guide-to-flexbox/
 
 ## subgraph memo
 
