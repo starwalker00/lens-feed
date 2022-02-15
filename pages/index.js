@@ -5,6 +5,10 @@ import PostList, {
   ALL_POSTS_QUERY,
   allPostsQueryVars,
 } from '../components/PostList'
+import TimeAgo from 'javascript-time-ago'
+import en from 'javascript-time-ago/locale/en.json'
+TimeAgo.addDefaultLocale(en)
+
 export default function Home() {
   return (
     <Container maxWidth='container.sm' m="20px auto" bg='blue.100'>
