@@ -50,13 +50,12 @@ export default function PostList() {
   // const areMorePosts = allPosts.length < _allPostsMeta.count
   const allPosts = data.posts
   const areMorePosts = false
-  debugger
 
   return (
     <section>
       <ul>
         {allPosts.map((post, index) => (
-          <PostItem postData={post} />
+          <PostItem key={index} postData={post} />
         ))}
       </ul>
       {areMorePosts && (

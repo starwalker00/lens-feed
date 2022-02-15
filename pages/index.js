@@ -1,7 +1,10 @@
 import Head from 'next/head'
 import { Container, Box, Heading, Text, Link } from '@chakra-ui/react'
-import PostList from '../components/PostList'
-
+import { initializeApollo, addApolloState } from '../lib/apolloClient'
+import PostList, {
+  ALL_POSTS_QUERY,
+  allPostsQueryVars,
+} from '../components/PostList'
 export default function Home() {
   return (
     <Container maxWidth='container.lg' m="20px auto">
@@ -22,14 +25,18 @@ export default function Home() {
 
 export async function getStaticProps() {
   // `getStaticProps` is executed on the server side.
+  const apolloClient = initializeApollo()
 
-  return {
-    props: {
-      // profileTotalSupply: cursor
-    },
+  await apolloClient.query({
+    query: ALL_POSTS_QUERY,
+    variables: allPostsQueryVars,
+  })
+
+  return addApolloState(apolloClient, {
+    props: {},
     // Next.js will attempt to re-generate the page:
     // - When a request comes in
-    // - At most once every 10 seconds
-    revalidate: 10, // In seconds
-  }
+    // - At most once every ${revalidate} seconds
+    revalidate: 1, // In seconds
+  })
 }
