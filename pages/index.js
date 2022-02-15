@@ -17,3 +17,17 @@ export default function Home() {
     </Container >
   )
 }
+
+export async function getStaticProps() {
+  // `getStaticProps` is executed on the server side.
+
+  return {
+    props: {
+      // profileTotalSupply: cursor
+    },
+    // Next.js will attempt to re-generate the page:
+    // - When a request comes in
+    // - At most once every 10 seconds
+    revalidate: 10, // In seconds
+  }
+}
