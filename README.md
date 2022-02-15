@@ -1,10 +1,12 @@
 # Custom
 
+## docs
+
+- https://thegraph.com/docs/en/developer/graphql-api
+- https://www.apollographql.com/docs/react/
+- https://github.com/vercel/next.js/tree/canary/examples/with-apollo
+
 ## subgraph memo
-
-### docs
-
-https://thegraph.com/docs/en/developer/graphql-api
 
 ### endpoint
 
