@@ -1,3 +1,40 @@
+# Custom
+
+## subgraph memo
+
+### endpoint
+
+https://thegraph.com/hosted-service/subgraph/anudit/lens-protocol
+
+### queries
+
+```
+{
+    posts(orderBy: timestamp orderDirection:desc, first: 1, skip: 0){
+    id
+    pubId
+    profileId {
+      handle
+    }
+    timestamp
+  }
+}
+
+{
+    posts(where: { profileId: "26" }){
+    id
+    pubId
+    profileId {
+      id
+      handle
+    }
+    timestamp
+  }
+}
+```
+
+# Next.js
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
