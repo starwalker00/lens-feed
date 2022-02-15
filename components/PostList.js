@@ -1,18 +1,19 @@
+import { Box, Center, Flex, Image, Text, WrapItem, VStack, HStack, Spacer, Button } from '@chakra-ui/react'
 import { gql, useQuery, NetworkStatus } from '@apollo/client'
 import ErrorMessage from './ErrorMessage'
 import PostItem from './PostItem'
 
 export const ALL_POSTS_QUERY = gql`
-{
-  posts(orderBy: timestamp orderDirection:desc first: 5) {
-    id
-    pubId
-    profileId {
-      handle
+  query GetPosts($first: Int, $skip: Int) {
+    posts(orderBy: timestamp orderDirection:desc first: $first, skip: $skip){
+      id
+      pubId
+      profileId {
+        handle
+      }
+      timestamp
     }
-    timestamp
   }
-}
 `
 
 export const allPostsQueryVars = {
@@ -35,11 +36,14 @@ export default function PostList() {
   const loadingMorePosts = networkStatus === NetworkStatus.fetchMore
 
   const loadMorePosts = () => {
+    console.log(`loadMorePosts`)
+    console.log(`allPosts.length : ${allPosts.length}`)
+    const variables = {
+      skip: allPosts.length,
+      // skip: 2,
+    }
     fetchMore({
-      variables: {
-        // skip: allPosts.length,
-        skip: 11,
-      },
+      variables
     })
   }
 
@@ -59,48 +63,10 @@ export default function PostList() {
         ))}
       </ul>
       {areMorePosts && (
-        <button onClick={() => loadMorePosts()} disabled={loadingMorePosts}>
+        <Button onClick={() => loadMorePosts()} disabled={loadingMorePosts}>
           {loadingMorePosts ? 'Loading...' : 'Show More'}
-        </button>
+        </Button>
       )}
-      <style jsx>{`
-        section {
-  padding - bottom: 20px;
-}
-        li {
-  display: block;
-  margin - bottom: 10px;
-}
-        div {
-  align - items: center;
-  display: flex;
-}
-        a {
-  font - size: 14px;
-  margin - right: 10px;
-  text - decoration: none;
-  padding - bottom: 0;
-  border: 0;
-}
-        span {
-  font - size: 14px;
-  margin - right: 5px;
-}
-        ul {
-  margin: 0;
-  padding: 0;
-}
-button:before {
-  align - self: center;
-  border - style: solid;
-  border - width: 6px 4px 0 4px;
-  border - color: #ffffff transparent transparent transparent;
-  content: '';
-  height: 0;
-  margin - right: 5px;
-  width: 0;
-}
-`}</style>
     </section>
   )
 }

@@ -3,7 +3,8 @@ import { Box, Center, Flex, Image, Text, WrapItem, VStack, HStack, Spacer } from
 function PostItem({ postData }) {
     return (
         <Flex>
-            {JSON.stringify(postData)}
+            {/* {JSON.stringify(postData)} */}
+            {postData.pubId} {' '} {postData.profileId.handle}
         </Flex>
     )
 }
