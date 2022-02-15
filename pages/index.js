@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import { Container, Box, Heading, Text, Link } from '@chakra-ui/react'
+import PostList from '../components/PostList'
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
           Lens feed
         </Heading>
       </Box>
+      <PostList />
     </Container >
   )
 }
