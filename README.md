@@ -2,6 +2,10 @@
 
 ## subgraph memo
 
+### docs
+
+https://thegraph.com/docs/en/developer/graphql-api
+
 ### endpoint
 
 https://thegraph.com/hosted-service/subgraph/anudit/lens-protocol
