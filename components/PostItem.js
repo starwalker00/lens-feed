@@ -1,6 +1,5 @@
 import { Box, Center, Flex, Image, Text, WrapItem, VStack, HStack, Spacer, Heading, Tooltip } from '@chakra-ui/react'
 import ReactTimeAgo from 'react-time-ago'
-// TimeAgo.addDefaultLocale(en)
 
 function PostItem({ postData }) {
     // console.log(`postData: ${JSON.stringify(postData)}`)
@@ -8,7 +7,7 @@ function PostItem({ postData }) {
     const profileHandle = postData.profileId.handle
     const owner = postData.profileId.owner
     let timestamp = postData.timestamp
-    const name = profileId.concat('#', profileHandle)
+    const name = profileHandle.concat('#', profileId)
 
     return (
         // <Flex>

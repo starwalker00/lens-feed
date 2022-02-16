@@ -1,72 +1,44 @@
 import { Box, Center, Flex, Image, Text, WrapItem, VStack, HStack, Spacer, Button, Container, Stack, Tooltip } from '@chakra-ui/react'
-import { gql, useQuery, NetworkStatus } from '@apollo/client'
-import ErrorMessage from './ErrorMessage'
 import PostItem from './PostItem'
+import { getAllPosts, gqlEndpoint } from "../lib/getPosts";
+import useSWR from 'swr'
 
-export const ALL_POSTS_QUERY = gql`
-  query GetPosts($first: Int, $skip: Int) {
-    posts(orderBy: timestamp orderDirection:desc first: $first, skip: $skip){
-      id
-      pubId
-      profileId {
-        id
-        handle
-        owner
-      }
-      timestamp
-    }
-  }
-`
-
-export const allPostsQueryVars = {
-  skip: 0,
-  first: 42,
+async function fetcher() {
+  console.log(`fetcher`)
+  const results = await getAllPosts()
+  const lastPostId = results.posts[0].id
+  console.log(`lastPostId : ${JSON.stringify(lastPostId)}`)
+  return lastPostId
 }
 
-export default function PostList() {
-  const { loading, error, data, fetchMore, networkStatus } = useQuery(
-    ALL_POSTS_QUERY,
+export default function PostList({ results }) {
+  // console.log(results.posts)
+
+  // this hook compares the last returned post id regularly to check if there are more posts to load
+  // this indicates the user that he can see these posts by reloading the page
+  // in the future, do it without reloading the page (with a better hook)
+  const { data, error, isValidating } = useSWR(results.posts[0].id, fetcher,
     {
-      variables: allPostsQueryVars,
-      // Setting this value to true will make the component rerender when
-      // the "networkStatus" changes, so we are able to know if it is fetching
-      // more data
-      notifyOnNetworkStatusChange: true,
+      revalidateOnMount: false,
+      fallbackData: results.posts[0].id,
+      refreshInterval: 5000
     }
   )
-
-  const loadingMorePosts = networkStatus === NetworkStatus.fetchMore
-
-  const loadMorePosts = () => {
-    console.log(`loadMorePosts`)
-    console.log(`allPosts.length : ${allPosts.length}`)
-    const variables = {
-      skip: allPosts.length,
-      // skip: 2,
-    }
-    fetchMore({
-      variables
-    })
-  }
-
-  if (error) return <ErrorMessage message="Error loading posts." />
-  if (loading && !loadingMorePosts) return <div>Loading</div>
-
-  // const { allPosts, _allPostsMeta } = data
-  // const areMorePosts = allPosts.length < _allPostsMeta.count
-  const allPosts = data.posts
-  const areMorePosts = false
+  const newPostsAvailable = !(data === results.posts[0].id)
 
   return (
     <Stack direction={['column']} spacing={8}>
-      {allPosts.map((post, index) => (
-        <PostItem key={index} postData={post} />
-      ))}
-      {/* {areMorePosts && (
-        <Button onClick={() => loadMorePosts()} disabled={loadingMorePosts}>
-          {loadingMorePosts ? 'Loading...' : 'Show More'}
-        </Button>
-      )} */}
+      {newPostsAvailable
+        ?
+        <Box>new posts, reload page to consult them</Box>
+        :
+        null // <Box>no new posts</Box>
+      }
+      {
+        results && results.posts && results.posts.map((post, index) => (
+          <PostItem key={index} postData={post} />
+        ))
+      }
     </Stack>
   )
 }

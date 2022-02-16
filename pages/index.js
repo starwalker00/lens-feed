@@ -1,15 +1,13 @@
 import Head from 'next/head'
 import { Container, Box, Heading, Text, Link } from '@chakra-ui/react'
-import { initializeApollo, addApolloState } from '../lib/apolloClient'
-import PostList, {
-  ALL_POSTS_QUERY,
-  allPostsQueryVars,
-} from '../components/PostList'
+import PostList from '../components/PostList'
+import { getAllPosts } from "../lib/getPosts";
 import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en.json'
 TimeAgo.addDefaultLocale(en)
 
-export default function Home() {
+export default function Home({ fallbackData }) {
+
   return (
     <Container maxWidth='container.sm' m="20px auto" bg='blue.100'>
       <Head>
@@ -22,25 +20,23 @@ export default function Home() {
           Lens feed
         </Heading>
       </Box>
-      <PostList />
+      {console.log(`fallbackData : ${JSON.stringify(fallbackData)}`)}
+      <PostList results={fallbackData} />
     </Container>
   )
 }
 
 export async function getStaticProps() {
   // `getStaticProps` is executed on the server side.
-  const apolloClient = initializeApollo()
+  const results = await getAllPosts();
 
-  await apolloClient.query({
-    query: ALL_POSTS_QUERY,
-    variables: allPostsQueryVars,
-  })
-
-  return addApolloState(apolloClient, {
-    props: {},
+  return {
+    props: {
+      fallbackData: results
+    },
     // Next.js will attempt to re-generate the page:
     // - When a request comes in
     // - At most once every ${revalidate} seconds
     revalidate: 1, // In seconds
-  })
+  }
 }
