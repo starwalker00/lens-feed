@@ -30,7 +30,7 @@ export default function PostList({ results }) {
     <Stack direction={['column']} spacing={8}>
       {newPostsAvailable
         ?
-        <Box>new posts, reload page to consult them</Box>
+        <Box>new posts, reload the page to consult them</Box>
         :
         null // <Box>no new posts</Box>
       }
