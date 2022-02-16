@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import { Container, Box, Heading, Text, Link } from '@chakra-ui/react'
 import PostList from '../components/PostList'
+import PostCreator from '../components/PostCreator'
 import { getAllPosts } from "../lib/getPosts";
 import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en.json'
@@ -19,6 +20,9 @@ export default function Home({ fallbackData }) {
         <Heading as="h1" size="xl">
           Lens feed
         </Heading>
+      </Box>
+      <Box w='100%' m="20px auto" textAlign="center">
+        <PostCreator />
       </Box>
       {console.log(`fallbackData : ${JSON.stringify(fallbackData)}`)}
       <PostList results={fallbackData} />
