@@ -22,7 +22,7 @@ function PostItem({ postData }) {
         //     {postData.pubId} {' '} {postData.profileId.handle}
         // </Flex>
         <Flex direction='column' wrap='wrap' shadow='xl' borderWidth='1px'>
-            <Flex className='postTitle' alignItems='center' alignSelf='flex-start' direction='row' bg='blue.200'>
+            <Flex className='postTitle' w='100%' alignItems='center' alignSelf='flex-start' direction='row' bg='blue.200'>
                 <Heading
                     fontSize='lg'
                     _hover={{
@@ -40,10 +40,12 @@ function PostItem({ postData }) {
                 <Text fontSize='xs'>
                     <ReactTimeAgo date={timestamp * 1000} locale="en-US" timeStyle="twitter" />
                 </Text>
+                <Box>
+                    <PostItemRawdataModal post={postData} />
+                </Box>
             </Flex>
             <Flex className='postContent'>
                 <Text alignSelf='center' fontSize='md'>{name}</Text>
-                <PostItemRawdataModal post={postData} />
             </Flex >
         </Flex >
     )
