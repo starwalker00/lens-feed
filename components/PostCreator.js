@@ -139,7 +139,8 @@ function PostCreator() {
                     {
                         title: "Transaction failed",
                         body: `Make sure you own profileId number ${profileIdValue}`
-                    })
+                    }
+                )
             }
         }
     }
