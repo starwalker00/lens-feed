@@ -62,13 +62,6 @@ export default function PostList({ results }) {
     const revalidateStaticServerPosts = async () => {
       return await axios.get("/api/revalidate")
     }
-    // try {
-    //   const response = await revalidateStaticServerPosts()
-    //   console.log(`revalidated : ${response.data.revalidated}`)
-    // } catch (error) {
-    //   console.log(`revalidation error :`)
-    //   console.error(error);
-    // }
     revalidateStaticServerPosts()
       .then(response => {
         console.log(`revalidated : ${response.data.revalidated}`)
