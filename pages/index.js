@@ -5,9 +5,12 @@ import PostCreator from '../components/PostCreator'
 import { getAllPosts } from "../lib/getPosts";
 import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en.json'
+import { useEffect } from 'react';
 TimeAgo.addDefaultLocale(en)
 
 export default function Home({ fallbackData }) {
+
+  useEffect(() => window.scrollTo(0, 0)) // scroll to top on reload
 
   return (
     <Container maxWidth='container.sm' bg='white' p='0' overflow='hidden'>
