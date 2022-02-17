@@ -40,7 +40,7 @@ export default function HelpButtonAndModal() {
     <>
       <IconButton
         onClick={onOpen}
-        colorScheme='blue'
+        colorScheme='yellow'
         aria-label='Help'
         icon={<QuestionOutlineIcon />}
       />

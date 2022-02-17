@@ -155,25 +155,27 @@ function PostCreator() {
     return (
         <>
             <VStack alignItems='stretch'>
-                <Flex bg='#e5ffbd' direction='column' color='#00501e' p='40px' pb='10px' borderRadius='12px'>
+                <Flex className='wallet-handler' bg='#e5ffbd' direction='column' color='#00501e' p='10px' pb='10px' borderRadius='12px' >
                     <Box p='2'>
-                        <Text>
-                            {walletAddress}
-                        </Text>
+                        {
+                            walletAddress === ""
+                                ? <Text>No Wallet Connected</Text>
+                                : <Text>{walletAddress}</Text>
+                        }
                     </Box>
                     <Box>
-
                         {
                             walletAddress === ""
                                 ? <Button onClick={connectWallet}>Connect Wallet</Button>
                                 : <Button onClick={disconnectWallet}>Disconnect</Button>
                         }
                     </Box>
-
-                    <HelpButtonAndModal />
                 </Flex>
 
-                <Flex bg='#abfe2c' color='#00501e' p='40px' pb='10px' borderRadius='12px'>
+                <Flex direction='column' className='post-form' bg='#abfe2c' color='#00501e' p='40px' pb='10px' borderRadius='12px'>
+                    <Flex mt='-35px' mr='-35px' alignSelf='flex-end'>
+                        <HelpButtonAndModal />
+                    </Flex>
                     <form style={{ width: "100%" }}
                         onSubmit={e => {
                             e.preventDefault();
