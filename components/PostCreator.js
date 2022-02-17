@@ -212,6 +212,8 @@ function PostCreator() {
                                     textAlign='center'
                                     id='profileId'
                                     type='number'
+                                    style={{ maxWidth: "120px" }}
+                                    mr='10px'
                                     width='auto'
                                     placeholder='1'
                                     value={profileIdValue}
