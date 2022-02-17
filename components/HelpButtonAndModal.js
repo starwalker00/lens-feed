@@ -66,13 +66,13 @@ export default function HelpButtonAndModal() {
               <ListItem my='3'>Text in the following format :</ListItem>
               <List>
                 {
-                  stringExamples.map(val => <ListExample value={val} />)
+                  stringExamples.map((val, index) => <ListExample value={val} key={index} />)
                 }
               </List>
               <ListItem my='3'>Images uploaded to the web :</ListItem>
               <List>
                 {
-                  imageExamples.map(val => <ListExample value={val} />)
+                  imageExamples.map((val, index) => <ListExample value={val} key={index} />)
                 }
               </List>
             </List>
