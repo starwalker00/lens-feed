@@ -206,7 +206,7 @@ function PostCreator() {
                                         }
                                     </Text>
                                     : walletAddress === "" ? <Text></Text> : <Text>You do not own a Lens profile on this network. Create one before posting.</Text>
-                                : <Text>Please connect to Polygon Mumbai Testnet.</Text>
+                                : chainId ? <Text>Please connect to Polygon Mumbai Testnet.</Text> : <Text></Text>
                         }
                     </Box>
                 </Flex>
