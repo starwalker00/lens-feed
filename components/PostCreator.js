@@ -204,7 +204,7 @@ function PostCreator() {
                                         ))
                                     }
                                 </Text>
-                                : <Text></Text>
+                                : walletAddress === "" ? <Text></Text> : <Text>You do not own a Lens profile. Create one before posting.</Text>
                         }
                     </Box>
                 </Flex>
@@ -231,7 +231,7 @@ function PostCreator() {
                                     value={profileIdValue}
                                     onChange={(e) => setProfileIdValue(e.target.value)} />
                             </Flex>
-                            <FormHelperText>You must own the profile to post.</FormHelperText>
+                            <FormHelperText>You must own the profile to post with it.</FormHelperText>
                             <Flex direction='column' width='100%'>
                                 <FormLabel htmlFor='contentURI'>Content URI</FormLabel>
                                 <Textarea id='contentURI'
