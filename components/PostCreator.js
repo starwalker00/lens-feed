@@ -218,8 +218,8 @@ function PostCreator() {
                                     onChange={(e) => setProfileIdValue(e.target.value)} />
                             </Flex>
                             <FormHelperText>You must own the profile to post with it.</FormHelperText>
-                            <Flex direction='column' width='100%'>
-                                <FormLabel htmlFor='contentURI'>Content URI</FormLabel>
+                            <Flex direction='column' width='100%' >
+                                <FormLabel mt='5' htmlFor='contentURI'>Content URI</FormLabel>
                                 <Textarea id='contentURI'
                                     bg='whiteAlpha'
                                     rows='1'
