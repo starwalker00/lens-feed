@@ -194,17 +194,19 @@ function PostCreator() {
                     </Box>
                     <Box>
                         {
-                            ownedTokenIds.length > 0
-                                ? <Text>Owned profile ID :{' '}
-                                    {
-                                        ownedTokenIds.map((tokenId, index) => (
-                                            index !== ownedTokenIds.length - 1
-                                                ? tokenId.concat(', ')
-                                                : tokenId.concat('.')
-                                        ))
-                                    }
-                                </Text>
-                                : walletAddress === "" ? <Text></Text> : <Text>You do not own a Lens profile. Create one before posting.</Text>
+                            chainId === 80001 ?
+                                ownedTokenIds.length > 0
+                                    ? <Text>Owned profile ID :{' '}
+                                        {
+                                            ownedTokenIds.map((tokenId, index) => (
+                                                index !== ownedTokenIds.length - 1
+                                                    ? tokenId.concat(', ')
+                                                    : tokenId.concat('.')
+                                            ))
+                                        }
+                                    </Text>
+                                    : walletAddress === "" ? <Text></Text> : <Text>You do not own a Lens profile on this network. Create one before posting.</Text>
+                                : <Text>Please connect to Polygon Mumbai Testnet.</Text>
                         }
                     </Box>
                 </Flex>
