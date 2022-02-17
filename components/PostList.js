@@ -1,9 +1,10 @@
-import { Box, Center, Flex, Image, Text, WrapItem, VStack, HStack, Spacer, Button, Container, Stack, Tooltip, useToast } from '@chakra-ui/react'
+import { Alert, AlertTitle, AlertDescription, CloseButton, Box, Center, Flex, Image, Text, WrapItem, VStack, HStack, Spacer, Button, Container, Stack, Tooltip, useToast } from '@chakra-ui/react'
 import PostItem from './PostItem'
 import { getAllPosts, gqlEndpoint } from "../lib/getPosts";
 import useSWR from 'swr'
 import { useState, useEffect } from 'react'
 import axios from 'axios';
+import Router from 'next/router'
 
 async function fetcher() {
   console.log(`fetcher`)
@@ -43,17 +44,17 @@ export default function PostList({ results }) {
       toast({
         title: `${title}`,
         description: `${body}`,
-        // status: 'error',
-        variant: 'subtle',
         position: 'top',
         duration: 9000,
         isClosable: true,
-        containerStyle: {
-          // width: '800px',
-          // maxWidth: '100%',
-          background: 'blue',
-          borderRadius: '25% 10%'
-        },
+        render: ({ onClose }) => (
+          <Alert bg='#abfe2c' flexDirection='column' status="info" borderRadius='12px'>
+            <AlertTitle>{title}</AlertTitle>
+            <AlertDescription display='block'>{body}</AlertDescription>
+            <Button size='sm' p='4px' m='4px' onClick={() => Router.reload(window.location.pathname)}>Reload</Button>
+            <CloseButton position='absolute' onClick={onClose} right='8px' top='8px' />
+          </Alert>
+        ),
       });
     }
   }, [newPostsAvailable]);
