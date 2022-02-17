@@ -18,7 +18,7 @@ function PostCreator() {
     // const [isTxPending, setIsTxPending] = useState(false) // transaction status
 
     // toast for tx feedback
-    const [toastMessage, setToastMessage] = useState(null);
+    const [toastMessage, setToastMessage] = useState(undefined);
     const toast = useToast();
     useEffect(() => {
         if (toastMessage) {
@@ -136,7 +136,7 @@ function PostCreator() {
                 setToastMessage(
                     {
                         title: "Transaction failed",
-                        body: `Do you own profileId number ${profileIdValue} ?`
+                        body: `Make sure you own profileId number ${profileIdValue}`
                     })
             }
         }
