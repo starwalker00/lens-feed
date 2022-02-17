@@ -10,7 +10,7 @@ TimeAgo.addDefaultLocale(en)
 export default function Home({ fallbackData }) {
 
   return (
-    <Container maxWidth='container.sm' m="20px auto" bg='white' p='0'>
+    <Container maxWidth='container.sm' bg='white' p='0' overflow='hidden'>
       <Head>
         <title>Lens feed</title>
         <meta name="description" content="Lens Protocol global feed with post feature" />
