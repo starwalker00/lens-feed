@@ -18,6 +18,7 @@ function PostCreator() {
     const [chainId, setChainId] = useState(null);
     const [signer, setSigner] = useState(null);
     const [lensHubContract, setLensHubContract] = useState(null);
+    const [ownedTokenIds, setOwnedTokenIds] = useState([]);
 
     const [profileIdValue, setProfileIdValue] = useState('') // input value
     const [contentURIValue, setContentURIValue] = useState('') // input value
@@ -63,7 +64,6 @@ function PostCreator() {
             });
             window.ethereum.on("error", (tx) => {
                 console.log('error metamask')
-
                 // window.ethereum.getTransaction(tx).then(function (transaction) {
                 //     console.log(transaction);
                 // });
@@ -94,6 +94,19 @@ function PostCreator() {
             setWalletAddress(address)
             const lensHub = new ethers.Contract(addresses.lensHubProxy, abis.lensHubProxy, web3provider)
             setLensHubContract(lensHub)
+
+            // get ownedTokenIds by connected address
+            let ownedTokenIds = []
+            const MAX_TOKENID = 10
+            try {
+                for (var iter = 0; iter < MAX_TOKENID; iter++) {
+                    let tokenId = await lensHub.tokenOfOwnerByIndex(address, iter)
+                    ownedTokenIds.push(tokenId.toNumber().toString())
+                }
+            } catch (error) {
+                console.log(iter) // reached every valid index
+            }
+            setOwnedTokenIds(ownedTokenIds)
         }
         if (web3provider) {
             connectOnSetProvider().catch(console.error)
@@ -116,11 +129,12 @@ function PostCreator() {
         setSigner(null)
         setChainId(null)
         setLensHubContract(null)
+        setOwnedTokenIds([])
     }
 
     async function post() {
-        // console.log(`profileIdValue: ${profileIdValue}`)
-        // console.log(`contentURIValue: ${contentURIValue}`)
+        // console.log(`profileIdValue: ${ profileIdValue }`)
+        // console.log(`contentURIValue: ${ contentURIValue }`)
         if (walletAddress === "") {
             alert('Please connect your wallet.')
         }
@@ -164,6 +178,13 @@ function PostCreator() {
         <>
             <VStack alignItems='stretch'>
                 <Flex className='wallet-handler' bg='#e5ffbd' direction='column' color='#00501e' p='10px' pb='10px' borderRadius='12px' >
+                    <Box>
+                        {
+                            walletAddress === ""
+                                ? <Button onClick={connectWallet}>Connect Wallet</Button>
+                                : <Button onClick={disconnectWallet}>Disconnect</Button>
+                        }
+                    </Box>
                     <Box p='2'>
                         {
                             walletAddress === ""
@@ -173,9 +194,17 @@ function PostCreator() {
                     </Box>
                     <Box>
                         {
-                            walletAddress === ""
-                                ? <Button onClick={connectWallet}>Connect Wallet</Button>
-                                : <Button onClick={disconnectWallet}>Disconnect</Button>
+                            ownedTokenIds.length > 0
+                                ? <Text>Owned profile ID :{' '}
+                                    {
+                                        ownedTokenIds.map((tokenId, index) => (
+                                            index !== ownedTokenIds.length - 1
+                                                ? tokenId.concat(', ')
+                                                : tokenId.concat('.')
+                                        ))
+                                    }
+                                </Text>
+                                : <Text></Text>
                         }
                     </Box>
                 </Flex>
@@ -231,44 +260,6 @@ function PostCreator() {
                     </form>
                 </Flex>
             </VStack>
-            {/* <Box>
-                <form
-                    onSubmit={e => {
-                        e.preventDefault();
-                    }}>
-                    <Flex
-                        wrap='wrap'
-                        justifyContent='space-evenly'
-                        alignItems='center'
-                        boxShadow='0px 0px 5px 0px #DA70D6'> */}
-            {/* <Input
-                            bg='whiteAlpha'
-                            width='10%'
-                            letterSpacing='.1rem'
-                            value={profileIdValue}
-                            onChange={(e) => setProfileIdValue(e.target.value)}
-                            placeholder="id"
-                        /> */}
-            {/* <Input
-                            bg='whiteAlpha'
-                            width='80%'
-                            letterSpacing='.1rem'
-                            value={contentURIValue}
-                            onChange={(e) => setContentURIValue(e.target.value)}
-                            placeholder="contentURI"
-                        /> */}
-            {/* <Button m='3'
-                            type="submit"
-                            onClick={post}
-                            colorScheme='teal' variant='solid'
-                            // isLoading={isSearching}
-                            loadingText='Loading' spinnerPlacement='start'
-                        >
-                            Post
-                        </Button> */}
-            {/* </Flex>
-                </form> */}
-            {/* </Box> */}
         </>
     )
 }
