@@ -20,11 +20,19 @@ export default function Home({ fallbackData }) {
         <Heading as="h1" size="xl">
           Lens feed
         </Heading>
+        <Text fontSize='lg' mt="10px" letterSpacing='.12rem'>
+          global feed of posts on Lens Protocol
+        </Text>
       </Box>
       <Box w='100%' m="20px auto" textAlign="center">
         <PostCreator />
       </Box>
       {/* {console.log(`fallbackData : ${JSON.stringify(fallbackData)}`)} */}
+      <Box w='100%' m="20px auto" textAlign="center">
+        <Heading as="h2" size="lg">
+          Latests Posts
+        </Heading>
+      </Box>
       <PostList results={fallbackData} />
     </Container>
   )
