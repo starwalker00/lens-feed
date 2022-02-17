@@ -80,12 +80,12 @@ function PostItem({ postData }) {
         //     {postData.pubId} {' '} {postData.profileId.handle}
         // </Flex>
         <Flex direction='column' wrap='wrap' shadow='xl' borderWidth='1px'>
-            <Flex className='postTitle' w='100%' alignItems='center' alignSelf='flex-start' direction='row' bg='blue.200'>
+            <Flex className='postTitle' p='1' w='100%' alignItems='center' alignSelf='flex-start' direction='row' bg='blue.200'>
                 <Heading
                     fontSize='lg'
                     _hover={{
                         textDecoration: 'underline',
-                        cursor: 'pointer'
+                        // cursor: 'pointer'
                     }}
                 >
                     <Tooltip px='2px' whiteSpace='nowrap' label={owner} placement='top'>
@@ -98,11 +98,12 @@ function PostItem({ postData }) {
                 <Text fontSize='xs'>
                     <ReactTimeAgo date={timestamp * 1000} locale="en-US" timeStyle="twitter" />
                 </Text>
+                <Spacer />
                 <Box>
                     <PostItemRawdataModal post={postData} />
                 </Box>
             </Flex>
-            <Flex className='postContent' px='5' py='5' alignItems='flex-end'>
+            <Flex className='postContent' px='5' py='5' justifyContent='center'>
                 {
                     mimeType.startsWith('text/plain') || mimeType === ''
                         ? <Text fontSize='md'>{bodyDecoded}</Text>
@@ -110,12 +111,19 @@ function PostItem({ postData }) {
                 }
                 {
                     mimeType === 'text/html'
-                        ? <Box dangerouslySetInnerHTML={{ __html: bodyDecoded }} alignSelf='flex-start' fontSize='md'></Box>
+                        ? <Box dangerouslySetInnerHTML={{ __html: bodyDecoded }} fontSize='md'></Box>
                         : null
                 }
                 {
                     mimeType === 'image'
-                        ? <Image src={contentURI} />
+                        ? <>
+                            <Image src={contentURI}
+                                alt='No compatible content to show'
+                                maxHeight='300px'
+                                onError={({ currentTarget }) => {
+                                    currentTarget.onerror = null; // prevents looping
+                                    // currentTarget.src = 'lens-protocol.png';
+                                }} /></>
                         : null
                 }
             </Flex >
