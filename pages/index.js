@@ -24,7 +24,7 @@ export default function Home({ fallbackData }) {
       <Box w='100%' m="20px auto" textAlign="center">
         <PostCreator />
       </Box>
-      {console.log(`fallbackData : ${JSON.stringify(fallbackData)}`)}
+      {/* {console.log(`fallbackData : ${JSON.stringify(fallbackData)}`)} */}
       <PostList results={fallbackData} />
     </Container>
   )

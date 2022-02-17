@@ -1,7 +1,6 @@
 import { Box, Center, Flex, Image, Text, WrapItem, VStack, HStack, Spacer, Heading, Tooltip } from '@chakra-ui/react'
 import ReactTimeAgo from 'react-time-ago'
 import PostItemRawdataModal from './PostItemRawdataModal'
-import axios from 'axios'
 import parseDataURL from 'data-urls'
 import { labelToName, decode } from 'whatwg-encoding'
 import DOMPurify from 'isomorphic-dompurify'

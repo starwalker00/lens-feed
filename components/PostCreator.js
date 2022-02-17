@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react'
-import { Box, Input, Center, Flex, Image, Text, WrapItem, VStack, HStack, Spacer, Heading, Tooltip, Button } from '@chakra-ui/react'
+import { Box, useToast, Input, Center, Flex, Image, Text, WrapItem, VStack, HStack, Spacer, Heading, Tooltip, Button } from '@chakra-ui/react'
 import { ethers } from "ethers";
 import { addresses, abis } from '../contracts';
 
@@ -14,6 +14,25 @@ function PostCreator() {
     const [profileIdValue, setProfileIdValue] = useState('') // input value
     const [contentURIValue, setContentURIValue] = useState('') // input value
 
+    // const [isMetamaskError, setIsMetamaskError] = useState(false) // transaction status
+    // const [isTxPending, setIsTxPending] = useState(false) // transaction status
+
+    // toast for tx feedback
+    const [toastMessage, setToastMessage] = useState(null);
+    const toast = useToast();
+    useEffect(() => {
+        if (toastMessage) {
+            const { title, body } = toastMessage;
+            toast({
+                title: `${title}`,
+                description: `${body}`,
+                status: 'error',
+                duration: 9000,
+                isClosable: true
+            });
+        }
+    }, [toastMessage, toast]);
+
     useEffect(() => {
         if (window.ethereum) {
             window.ethereum.on('chainChanged', () => {
@@ -24,17 +43,34 @@ function PostCreator() {
                 const provider = new ethers.providers.Web3Provider(window.ethereum)
                 setWeb3Provider(provider)
             })
+            window.ethereum.on("pending", (tx) => {
+                console.log(`tx pending`)
+                window.ethereum.once(txHash, (transaction) => {
+                    console.log(`tx mined : ${txHash}`)
+                })
+                // window.ethereum.getTransaction(tx).then(function (transaction) {
+                //     console.log(transaction);
+                // });
+            });
+            window.ethereum.on("error", (tx) => {
+                console.log('error metamask')
+
+                // window.ethereum.getTransaction(tx).then(function (transaction) {
+                //     console.log(transaction);
+                // });
+            });
+
         }
     }, [])
 
     useEffect(() => {
-        console.log(`useEffect`)
+        // console.log(`useEffect`)
         console.log(`walletAddress: ${walletAddress}`)
     }, [walletAddress])
 
     useEffect(() => {
-        console.log(`useEffect`)
-        console.log(`chainId: ${JSON.stringify(chainId)}`)
+        // console.log(`useEffect`)
+        // console.log(`chainId: ${JSON.stringify(chainId)}`)
     }, [chainId])
 
     useEffect(() => {
@@ -91,7 +127,18 @@ function PostCreator() {
                 referenceModule: addresses.ZERO_ADDRESS,
                 referenceModuleData: [],
             }
-            await lensHubContract.connect(signer).post(inputStruct);
+            try {
+                await lensHubContract.connect(signer).post(inputStruct)
+            }
+            catch (error) {
+                // console.log(error)
+                // setToastMessage({ title: "Transaction failed", body: error.message })
+                setToastMessage(
+                    {
+                        title: "Transaction failed",
+                        body: `Do you own profileId number ${profileIdValue} ?`
+                    })
+            }
         }
     }
 
