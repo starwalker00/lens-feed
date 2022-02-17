@@ -141,13 +141,21 @@ function PostCreator() {
             }
             catch (error) {
                 // console.log(error)
-                // setToastMessage({ title: "Transaction failed", body: error.message })
-                setToastMessage(
-                    {
-                        title: "Transaction failed",
-                        body: `Make sure you own profileId number ${profileIdValue}`
-                    }
-                )
+                if (profileIdValue) {
+                    setToastMessage(
+                        {
+                            title: "Transaction failed",
+                            body: `Make sure you own profileId number ${profileIdValue}`
+                        }
+                    )
+                } else {
+                    setToastMessage(
+                        {
+                            title: "Transaction failed",
+                            body: `Make sure you entered a profileId`
+                        }
+                    )
+                }
             }
         }
     }
