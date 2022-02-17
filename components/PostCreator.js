@@ -57,8 +57,13 @@ function PostCreator() {
 
 
     async function connectWallet() {
-        const provider = new ethers.providers.Web3Provider(window.ethereum)
-        setWeb3Provider(provider)
+        if (window.ethereum) {
+            const provider = new ethers.providers.Web3Provider(window.ethereum)
+            setWeb3Provider(provider)
+        }
+        else {
+            alert('No browser wallet found.')
+        }
     }
 
     async function disconnectWallet() {
@@ -72,10 +77,10 @@ function PostCreator() {
         // console.log(`profileIdValue: ${profileIdValue}`)
         // console.log(`contentURIValue: ${contentURIValue}`)
         if (walletAddress === "") {
-            alert('Please connect your wallet')
+            alert('Please connect your wallet.')
         }
         else if (chainId !== 80001) {
-            alert('Change network to polygon mumbai')
+            alert('Please change network to Polygon Mumbai Testnet.')
         }
         else {
             const inputStruct = {
