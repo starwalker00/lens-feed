@@ -8,6 +8,14 @@
 - https://css-tricks.com/snippets/css/a-guide-to-flexbox/
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Identifying_resources_on_the_Web
 
+URI management:
+
+- https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs
+- https://www.npmjs.com/package/data-urls
+- https://www.npmjs.com/package/isomorphic-dompurify (client and server compatible)
+- https://github.com/cure53/DOMPurify (only client compatible)
+- https://gchq.github.io/CyberChef/
+
 ## subgraph memo
 
 ### endpoint
