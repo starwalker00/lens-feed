@@ -7,6 +7,7 @@
 - https://github.com/vercel/next.js/tree/canary/examples/with-apollo
 - https://css-tricks.com/snippets/css/a-guide-to-flexbox/
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Identifying_resources_on_the_Web
+- https://docs.ethers.io/v5
 
 URI management:
 
@@ -15,6 +16,11 @@ URI management:
 - https://www.npmjs.com/package/isomorphic-dompurify (client and server compatible)
 - https://github.com/cure53/DOMPurify (only client compatible)
 - https://gchq.github.io/CyberChef/
+
+Useful links:
+
+- https://nft.storage/
+- https://picsum.photos/
 
 ## subgraph memo
 
