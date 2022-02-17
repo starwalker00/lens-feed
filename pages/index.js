@@ -30,7 +30,8 @@ export default function Home({ fallbackData }) {
   )
 }
 
-export async function getStaticProps() {
+export async function getStaticProps({ reload }) {
+  console.log(reload)
   // `getStaticProps` is executed on the server side.
   const results = await getAllPosts();
 
