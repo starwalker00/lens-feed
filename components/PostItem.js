@@ -117,7 +117,7 @@ function PostItem({ postData }) {
                     mimeType === 'image'
                         ? <>
                             <Image src={contentURI}
-                                alt='No compatible content to show'
+                                alt='Error : No compatible content to show'
                                 maxHeight='300px'
                                 onError={({ currentTarget }) => {
                                     currentTarget.onerror = null; // prevents looping
