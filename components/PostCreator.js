@@ -28,6 +28,7 @@ function PostCreator() {
                 title: `${title}`,
                 description: `${body}`,
                 status: 'error',
+                position: 'top-right',
                 duration: 9000,
                 isClosable: true
             });
