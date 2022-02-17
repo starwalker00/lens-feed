@@ -6,6 +6,7 @@
 - https://www.apollographql.com/docs/react/
 - https://github.com/vercel/next.js/tree/canary/examples/with-apollo
 - https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+- https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Identifying_resources_on_the_Web
 
 ## subgraph memo
 

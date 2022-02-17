@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react'
-import { Box, Center, Flex, Image, Text, WrapItem, VStack, HStack, Spacer, Heading, Tooltip, Button } from '@chakra-ui/react'
+import { Box, Input, Center, Flex, Image, Text, WrapItem, VStack, HStack, Spacer, Heading, Tooltip, Button } from '@chakra-ui/react'
 import { ethers } from "ethers";
 import { addresses, abis } from '../contracts';
 
@@ -11,15 +11,16 @@ function PostCreator() {
     const [signer, setSigner] = useState(null);
     const [lensHubContract, setLensHubContract] = useState(null);
 
+    const [profileIdValue, setProfileIdValue] = useState('') // input value
+    const [contentURIValue, setContentURIValue] = useState('') // input value
+
     useEffect(() => {
         if (window.ethereum) {
             window.ethereum.on('chainChanged', () => {
-                // window.location.reload();
                 const provider = new ethers.providers.Web3Provider(window.ethereum)
                 setWeb3Provider(provider)
             })
             window.ethereum.on('accountsChanged', () => {
-                // window.location.reload();
                 const provider = new ethers.providers.Web3Provider(window.ethereum)
                 setWeb3Provider(provider)
             })
@@ -68,6 +69,8 @@ function PostCreator() {
     }
 
     async function post() {
+        // console.log(`profileIdValue: ${profileIdValue}`)
+        // console.log(`contentURIValue: ${contentURIValue}`)
         if (walletAddress === "") {
             alert('Please connect your wallet')
         }
@@ -76,9 +79,8 @@ function PostCreator() {
         }
         else {
             const inputStruct = {
-                profileId: 42,
-                contentURI:
-                    'https://ipfs.io/ipfs/bafybeie53rvcgggxflkqdmcpffsldpy62jfqrs22ryfyd3c3jvznou7zee',
+                profileId: profileIdValue,
+                contentURI: contentURIValue,
                 collectModule: addresses.emptyCollectModule,
                 collectModuleData: [],
                 referenceModule: addresses.ZERO_ADDRESS,
@@ -98,7 +100,44 @@ function PostCreator() {
                     ? <Button onClick={connectWallet}>Connect</Button>
                     : <Button onClick={disconnectWallet}>Disconnect</Button>
             }
-            <Button onClick={post}>post</Button>
+            <Box>
+                <form
+                    onSubmit={e => {
+                        e.preventDefault();
+                    }}>
+                    <Flex
+                        wrap='wrap'
+                        justifyContent='space-evenly'
+                        alignItems='center'
+                        boxShadow='0px 0px 5px 0px #DA70D6'>
+                        <Input
+                            bg='whiteAlpha'
+                            width='10%'
+                            letterSpacing='.1rem'
+                            value={profileIdValue}
+                            onChange={(e) => setProfileIdValue(e.target.value)}
+                            placeholder="id"
+                        />
+                        <Input
+                            bg='whiteAlpha'
+                            width='80%'
+                            letterSpacing='.1rem'
+                            value={contentURIValue}
+                            onChange={(e) => setContentURIValue(e.target.value)}
+                            placeholder="contentURI"
+                        />
+                        <Button m='3'
+                            type="submit"
+                            onClick={post}
+                            colorScheme='teal' variant='solid'
+                            // isLoading={isSearching}
+                            loadingText='Loading' spinnerPlacement='start'
+                        >
+                            Post
+                        </Button>
+                    </Flex>
+                </form>
+            </Box>
         </>
     )
 }

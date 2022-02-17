@@ -1,6 +1,7 @@
 import { Box, Center, Flex, Image, Text, WrapItem, VStack, HStack, Spacer, Heading, Tooltip } from '@chakra-ui/react'
 import ReactTimeAgo from 'react-time-ago'
 import PostItemRawdataModal from './PostItemRawdataModal'
+import axios from 'axios'
 
 function PostItem({ postData }) {
     // console.log(`postData: ${JSON.stringify(postData)}`)
@@ -9,9 +10,9 @@ function PostItem({ postData }) {
     const owner = postData.profileId.owner
     let timestamp = postData.timestamp
     const name = profileHandle.concat('#', profileId)
-    // const contentURI = postData.contentURI
+    const contentURI = postData.contentURI
 
-    // async function(contentURI) {
+    // async function getContent(contentURI) {
 
     // }
 
