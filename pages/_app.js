@@ -7,6 +7,8 @@ const theme = extendTheme({
       'html, body': {
         color: '#00501e',
         background: '#e5ffbd',
+        // background: '#abfe2c',
+        background: '#FFFFFF',
       },
     },
   },

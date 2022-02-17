@@ -79,8 +79,8 @@ function PostItem({ postData }) {
         //     {/* {JSON.stringify(postData)} */}
         //     {postData.pubId} {' '} {postData.profileId.handle}
         // </Flex>
-        <Flex direction='column' wrap='wrap' shadow='xl' borderWidth='1px'>
-            <Flex className='postTitle' p='1' w='100%' alignItems='center' alignSelf='flex-start' direction='row' bg='blue.200'>
+        <Flex direction='column' wrap='wrap' shadow='xl' borderWidth='1px' bg='white'>
+            <Flex className='postTitle' p='1' ml='4' w='100%' alignItems='center' alignSelf='flex-start' direction='row'>
                 <Heading
                     fontSize='lg'
                     _hover={{
@@ -99,7 +99,7 @@ function PostItem({ postData }) {
                     <ReactTimeAgo date={timestamp * 1000} locale="en-US" timeStyle="twitter" />
                 </Text>
                 <Spacer />
-                <Box>
+                <Box mr='4'>
                     <PostItemRawdataModal post={postData} />
                 </Box>
             </Flex>

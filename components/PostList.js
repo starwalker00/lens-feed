@@ -27,7 +27,7 @@ export default function PostList({ results }) {
   const newPostsAvailable = !(data === results.posts[0].id)
 
   return (
-    <Stack direction={['column']} spacing={8}>
+    <Stack direction={['column']} spacing={0}>
       {newPostsAvailable
         ?
         <Box>new posts, reload the page to consult them</Box>
