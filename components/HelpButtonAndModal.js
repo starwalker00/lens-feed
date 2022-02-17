@@ -30,7 +30,7 @@ export default function HelpButtonAndModal() {
   ]
   const imageExamples = [
     'https://ipfs.io/ipfs/bafybeihv5fg7l5e5rsxw2fkxs3hetvzt4cpuf3ku3abhpnij74czaernt4',
-    'https://picsum.photos/id/666/500/200'
+    'https://picsum.photos/id/664/500/200'
   ]
 
   const { isOpen, onOpen, onClose } = useDisclosure()
