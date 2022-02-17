@@ -4,6 +4,13 @@ import { Box, useToast, Input, Center, Flex, Image, Text, WrapItem, VStack, HSta
 import { ethers } from "ethers";
 import { addresses, abis } from '../contracts';
 import HelpButtonAndModal from '../components/HelpButtonAndModal'
+import {
+    FormControl,
+    FormLabel,
+    FormErrorMessage,
+    FormHelperText,
+    Textarea
+} from '@chakra-ui/react'
 
 function PostCreator() {
     const [web3provider, setWeb3Provider] = useState(null);
@@ -147,16 +154,74 @@ function PostCreator() {
 
     return (
         <>
-            <Text>
-                {walletAddress}
-            </Text>
-            {
-                walletAddress === ""
-                    ? <Button onClick={connectWallet}>Connect</Button>
-                    : <Button onClick={disconnectWallet}>Disconnect</Button>
-            }
-            <HelpButtonAndModal />
-            <Box>
+            <VStack alignItems='stretch'>
+                <Flex bg='#e5ffbd' direction='column' color='#00501e' p='40px' pb='10px' borderRadius='12px'>
+                    <Box p='2'>
+                        <Text>
+                            {walletAddress}
+                        </Text>
+                    </Box>
+                    <Box>
+
+                        {
+                            walletAddress === ""
+                                ? <Button onClick={connectWallet}>Connect Wallet</Button>
+                                : <Button onClick={disconnectWallet}>Disconnect</Button>
+                        }
+                    </Box>
+
+                    <HelpButtonAndModal />
+                </Flex>
+
+                <Flex bg='#abfe2c' color='#00501e' p='40px' pb='10px' borderRadius='12px'>
+                    <form style={{ width: "100%" }}
+                        onSubmit={e => {
+                            e.preventDefault();
+                        }}>
+                        <FormControl>
+                            <Flex direction='row' width='100%' justifyContent='center' alignItems='center'>
+                                <FormLabel htmlFor='profileId'>Profile ID</FormLabel>
+                                <Input
+                                    bg='whiteAlpha'
+                                    focusBorderColor='#00501e'
+                                    textAlign='center'
+                                    id='profileId'
+                                    type='number'
+                                    width='auto'
+                                    placeholder='1'
+                                    value={profileIdValue}
+                                    onChange={(e) => setProfileIdValue(e.target.value)} />
+                            </Flex>
+                            <FormHelperText>You must own the profile to post.</FormHelperText>
+                            <Flex direction='column' width='100%'>
+                                <FormLabel htmlFor='contentURI'>Content URI</FormLabel>
+                                <Textarea id='contentURI'
+                                    bg='whiteAlpha'
+                                    rows='1'
+                                    focusBorderColor='#00501e'
+                                    type='text'
+                                    placeholder='data:,Hello World'
+                                    value={contentURIValue}
+                                    onChange={(e) => setContentURIValue(e.target.value)} />
+                            </Flex>
+                        </FormControl>
+                        <Button m='3'
+                            type="submit"
+                            onClick={post}
+                            bg='#e5ffbd'
+                            textColor='#00501e'
+                            _hover={{
+                                backgroundColor: '#89e401'
+                            }}
+                            colorScheme='gray' variant='solid'
+                            // isLoading={isSearching}
+                            loadingText='Loading' spinnerPlacement='start'>
+                            Post
+                        </Button>
+                    </form>
+                </Flex>
+            </VStack>
+            {/* <Box>
                 <form
                     onSubmit={e => {
                         e.preventDefault();
@@ -165,24 +230,24 @@ function PostCreator() {
                         wrap='wrap'
                         justifyContent='space-evenly'
                         alignItems='center'
-                        boxShadow='0px 0px 5px 0px #DA70D6'>
-                        <Input
+                        boxShadow='0px 0px 5px 0px #DA70D6'> */}
+            {/* <Input
                             bg='whiteAlpha'
                             width='10%'
                             letterSpacing='.1rem'
                             value={profileIdValue}
                             onChange={(e) => setProfileIdValue(e.target.value)}
                             placeholder="id"
-                        />
-                        <Input
+                        /> */}
+            {/* <Input
                             bg='whiteAlpha'
                             width='80%'
                             letterSpacing='.1rem'
                             value={contentURIValue}
                             onChange={(e) => setContentURIValue(e.target.value)}
                             placeholder="contentURI"
-                        />
-                        <Button m='3'
+                        /> */}
+            {/* <Button m='3'
                             type="submit"
                             onClick={post}
                             colorScheme='teal' variant='solid'
@@ -190,10 +255,10 @@ function PostCreator() {
                             loadingText='Loading' spinnerPlacement='start'
                         >
                             Post
-                        </Button>
-                    </Flex>
-                </form>
-            </Box>
+                        </Button> */}
+            {/* </Flex>
+                </form> */}
+            {/* </Box> */}
         </>
     )
 }
