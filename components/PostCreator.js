@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { Box, useToast, Input, Center, Flex, Image, Text, WrapItem, VStack, HStack, Spacer, Heading, Tooltip, Button } from '@chakra-ui/react'
 import { ethers } from "ethers";
 import { addresses, abis } from '../contracts';
+import HelpButtonAndModal from '../components/HelpButtonAndModal'
 
 function PostCreator() {
     const [web3provider, setWeb3Provider] = useState(null);
@@ -152,6 +153,7 @@ function PostCreator() {
                     ? <Button onClick={connectWallet}>Connect</Button>
                     : <Button onClick={disconnectWallet}>Disconnect</Button>
             }
+            <HelpButtonAndModal />
             <Box>
                 <form
                     onSubmit={e => {

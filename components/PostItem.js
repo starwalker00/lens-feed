@@ -22,6 +22,7 @@ function PostItem({ postData }) {
     // const contentURI = "data:text/html,<span style='color:brown;font-weight:bold'>Lens post content</span>"
     // const contentURI = "data:text/html,<span style='color:rgb(171, 254, 44);font-weight:bold'>Lens post content</span>"
     // const contentURI = "https://ipfs.io/ipfs/bafybeie53rvcgggxflkqdmcpffsldpy62jfqrs22ryfyd3c3jvznou7zee"
+    // const contentURI = "https://picsum.photos/500/200"
 
     function resolveContentURI(contentURI) {
         const breakingReturnValue = {
