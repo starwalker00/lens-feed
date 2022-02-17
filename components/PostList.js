@@ -3,6 +3,7 @@ import PostItem from './PostItem'
 import { getAllPosts, gqlEndpoint } from "../lib/getPosts";
 import useSWR from 'swr'
 import { useState, useEffect } from 'react'
+import axios from 'axios';
 
 async function fetcher() {
   console.log(`fetcher`)
@@ -10,6 +11,10 @@ async function fetcher() {
   const lastPostId = results.posts[0].id
   console.log(`lastPostId : ${JSON.stringify(lastPostId)}`)
   return lastPostId
+}
+
+async function revalidateStaticServerPosts() {
+  const res = await axios.get("/api/revalidate");
 }
 
 export default function PostList({ results }) {
@@ -26,7 +31,6 @@ export default function PostList({ results }) {
     }
   )
   const newPostsAvailable = !(data === results.posts[0].id)
-
   // toast for new posts
   const toastMessage = {
     title: "New posts found",
@@ -53,6 +57,27 @@ export default function PostList({ results }) {
       });
     }
   }, [newPostsAvailable]);
+
+  useEffect(() => {
+    const revalidateStaticServerPosts = async () => {
+      return await axios.get("/api/revalidate")
+    }
+    // try {
+    //   const response = await revalidateStaticServerPosts()
+    //   console.log(`revalidated : ${response.data.revalidated}`)
+    // } catch (error) {
+    //   console.log(`revalidation error :`)
+    //   console.error(error);
+    // }
+    revalidateStaticServerPosts()
+      .then(response => {
+        console.log(`revalidated : ${response.data.revalidated}`)
+      })
+      .catch(error => {
+        console.log(`revalidation error :`)
+        console.error(error);
+      })
+  }, [newPostsAvailable])
 
   return (
     <Stack direction={['column']} spacing={0}>
