@@ -53,22 +53,6 @@ function PostCreator() {
                 const provider = new ethers.providers.Web3Provider(window.ethereum)
                 setWeb3Provider(provider)
             })
-            window.ethereum.on("pending", (tx) => {
-                console.log(`tx pending`)
-                window.ethereum.once(txHash, (transaction) => {
-                    console.log(`tx mined : ${txHash}`)
-                })
-                // window.ethereum.getTransaction(tx).then(function (transaction) {
-                //     console.log(transaction);
-                // });
-            });
-            window.ethereum.on("error", (tx) => {
-                console.log('error metamask')
-                // window.ethereum.getTransaction(tx).then(function (transaction) {
-                //     console.log(transaction);
-                // });
-            });
-
         }
     }, [])
 
