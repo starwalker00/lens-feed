@@ -1,7 +1,8 @@
-import { Box, Center, Flex, Image, Text, WrapItem, VStack, HStack, Spacer, Button, Container, Stack, Tooltip } from '@chakra-ui/react'
+import { Box, Center, Flex, Image, Text, WrapItem, VStack, HStack, Spacer, Button, Container, Stack, Tooltip, useToast } from '@chakra-ui/react'
 import PostItem from './PostItem'
 import { getAllPosts, gqlEndpoint } from "../lib/getPosts";
 import useSWR from 'swr'
+import { useState, useEffect } from 'react'
 
 async function fetcher() {
   console.log(`fetcher`)
@@ -26,14 +27,41 @@ export default function PostList({ results }) {
   )
   const newPostsAvailable = !(data === results.posts[0].id)
 
+  // toast for new posts
+  const toastMessage = {
+    title: "New messages found",
+    body: `Reload the page to see them`
+  }
+  const toast = useToast();
+  useEffect(() => {
+    if (newPostsAvailable && toastMessage) {
+      const { title, body } = toastMessage;
+      toast({
+        title: `${title}`,
+        description: `${body}`,
+        // status: 'error',
+        variant: 'subtle',
+        position: 'top',
+        duration: 9000,
+        isClosable: true,
+        containerStyle: {
+          // width: '800px',
+          // maxWidth: '100%',
+          background: 'blue',
+          borderRadius: '25% 10%'
+        },
+      });
+    }
+  }, [newPostsAvailable]);
+
   return (
     <Stack direction={['column']} spacing={0}>
-      {newPostsAvailable
+      {/* {newPostsAvailable
         ?
         <Box>new posts, reload the page to consult them</Box>
         :
         null // <Box>no new posts</Box>
-      }
+      } */}
       {
         results && results.posts && results.posts.map((post, index) => (
           <PostItem key={index} postData={post} />
