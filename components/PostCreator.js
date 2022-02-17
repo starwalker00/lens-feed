@@ -24,7 +24,7 @@ function PostCreator() {
     const [contentURIValue, setContentURIValue] = useState('') // input value
 
     // const [isMetamaskError, setIsMetamaskError] = useState(false) // transaction status
-    // const [isTxPending, setIsTxPending] = useState(false) // transaction status
+    const [isTxPending, setIsTxPending] = useState(false) // transaction status
 
     // toast for tx feedback
     const [toastMessage, setToastMessage] = useState(undefined);
@@ -134,8 +134,11 @@ function PostCreator() {
                 referenceModule: addresses.ZERO_ADDRESS,
                 referenceModuleData: [],
             }
-            try {
-                await lensHubContract.connect(signer).post(inputStruct)
+            try { // call to contract post
+                const tx = await lensHubContract.connect(signer).post(inputStruct)
+                setIsTxPending(true)
+                await tx.wait()
+                setIsTxPending(false)
             }
             catch (error) {
                 // console.log(error)
@@ -235,6 +238,7 @@ function PostCreator() {
                         <Button m='3'
                             type="submit"
                             onClick={post}
+                            isLoading={isTxPending}
                             bg='#e5ffbd'
                             textColor='#00501e'
                             _hover={{
