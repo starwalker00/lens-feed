@@ -29,7 +29,7 @@ export default function PostList({ results }) {
 
   // toast for new posts
   const toastMessage = {
-    title: "New messages found",
+    title: "New posts found",
     body: `Reload the page to see them`
   }
   const toast = useToast();
