@@ -26,7 +26,7 @@ export default function HelpButtonAndModal() {
   const stringExamples = [
     'data:,Hello World',
     'data:text/plain;base64,bGVucyBpbnB1dA==',
-    "data:text/html,<span style='color: teal; font - weight:bold'>Lens post content</span>"
+    "data:text/html,<span style='color:teal;font-weight:bold'>Lens post content</span>"
   ]
   const imageExamples = [
     'https://ipfs.io/ipfs/bafybeihv5fg7l5e5rsxw2fkxs3hetvzt4cpuf3ku3abhpnij74czaernt4',
