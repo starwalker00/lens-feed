@@ -74,12 +74,6 @@ export default function PostList({ results }) {
 
   return (
     <Stack direction={['column']} spacing={0}>
-      {/* {newPostsAvailable
-        ?
-        <Box>new posts, reload the page to consult them</Box>
-        :
-        null // <Box>no new posts</Box>
-      } */}
       {
         results && results.posts && results.posts.map((post, index) => (
           <PostItem key={index} postData={post} />
