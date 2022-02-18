@@ -4,6 +4,7 @@ import { Box, useToast, Input, Center, Flex, Image, Text, WrapItem, VStack, HSta
 import { ethers } from "ethers";
 import { addresses, abis } from '../contracts';
 import HelpButtonAndModal from '../components/HelpButtonAndModal'
+import PostItem from '../components/PostItem'
 import {
     FormControl,
     FormLabel,
@@ -168,6 +169,38 @@ function PostCreator() {
         }
     }
 
+    // preview
+    const previewPostInit = {
+        profileId: {
+            id: 0,
+            owner: '0x0000000000000000000000000000000000000000',
+            handle: 'preview',
+            createdOn: Math.round(new Date().getTime() / 1000)
+        },
+        timestamp: Math.round(new Date().getTime() / 1000),
+        // timestamp: '1645214903',
+        contentURI: 'data:,Hello preview'
+    }
+    const [isPreviewVisible, setIsPreviewVisible] = useState(false)
+    const [previewPost, setPreviewPost] = useState(previewPostInit)
+
+    useEffect(() => { // called on every content URI change and re-renders a PostItem, possible performance issues
+        // console.log(Math.round(new Date().getTime() / 1000))
+        if (isPreviewVisible && contentURIValue) {
+            const timer = setTimeout(() => { // avoid bouncing data fields 
+                setPreviewPost({
+                    ...previewPost,
+                    contentURI: contentURIValue,
+                    timestamp: Math.round(new Date().getTime() / 1000)
+                });
+            }, 500)
+            return () => clearTimeout(timer)
+        }
+        if (!isPreviewVisible) {
+            setPreviewPost(previewPostInit)
+        }
+    }, [isPreviewVisible, contentURIValue])
+
     return (
         <>
             <VStack alignItems='stretch'>
@@ -200,9 +233,6 @@ function PostCreator() {
                 </Flex>
 
                 <Flex direction='column' className='post-form' bg='#abfe2c' color='#00501e' p='40px' pb='10px' borderRadius='12px'>
-                    {/* <Flex mt='-35px' mr='-35px' alignSelf='flex-end'>
-                        <HelpButtonAndModal />
-                    </Flex> */}
                     <Flex mt='-35px' mr='-35px' alignItems='baseline'>
                         <Heading as='h6' size='md' alignSelf='center'>Publish a post : </Heading>
                         <Spacer />
@@ -255,8 +285,24 @@ function PostCreator() {
                             loadingText='Loading' spinnerPlacement='start'>
                             Post
                         </Button>
+                        <Button m='3'
+                            onClick={() => setIsPreviewVisible(!isPreviewVisible)}
+                            bg='#e5ffbd'
+                            textColor='#00501e'
+                            _hover={{
+                                backgroundColor: '#89e401'
+                            }}
+                            colorScheme='gray' variant='solid'
+                            // isLoading={isSearching}
+                            loadingText='Loading' spinnerPlacement='start'>
+                            {isPreviewVisible ? 'Hide Preview' : 'Preview'}
+                        </Button>
                     </form>
                 </Flex>
+                {
+                    isPreviewVisible &&
+                    <PostItem postData={previewPost} />
+                }
             </VStack>
         </>
     )
