@@ -20,7 +20,6 @@ import {
   Heading,
   Input
 } from '@chakra-ui/react'
-import { useClipboard } from '@chakra-ui/react'
 import { useState, useEffect } from 'react'
 
 export default function HelpButtonAndModal({ size }) {
