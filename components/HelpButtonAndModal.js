@@ -35,7 +35,6 @@ export default function HelpButtonAndModal() {
 
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [value, setValue] = useState('init')
-  const { hasCopied, onCopy } = useClipboard(value)
 
   return (
     <>
