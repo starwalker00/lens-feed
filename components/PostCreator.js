@@ -22,7 +22,7 @@ function PostCreator() {
     const [ownedTokenIds, setOwnedTokenIds] = useState([]);
 
     const [profileIdValue, setProfileIdValue] = useState('') // input value
-    const [contentURIValue, setContentURIValue] = useState('') // input value
+    const [contentURIValue, setContentURIValue] = useState('data:,Hello World') // input value
 
     // const [isMetamaskError, setIsMetamaskError] = useState(false) // transaction status
     const [isTxPending, setIsTxPending] = useState(false) // transaction status
@@ -178,15 +178,13 @@ function PostCreator() {
             createdOn: Math.round(new Date().getTime() / 1000)
         },
         timestamp: Math.round(new Date().getTime() / 1000),
-        // timestamp: '1645214903',
-        contentURI: 'data:,Hello preview'
+        contentURI: contentURIValue
     }
     const [isPreviewVisible, setIsPreviewVisible] = useState(false)
     const [previewPost, setPreviewPost] = useState(previewPostInit)
 
     useEffect(() => { // called on every content URI change and re-renders a PostItem, possible performance issues
-        // console.log(Math.round(new Date().getTime() / 1000))
-        if (isPreviewVisible && contentURIValue) {
+        if (isPreviewVisible) {
             const timer = setTimeout(() => { // avoid bouncing data fields 
                 setPreviewPost({
                     ...previewPost,
@@ -271,32 +269,35 @@ function PostCreator() {
                                     onChange={(e) => setContentURIValue(e.target.value)} />
                             </Flex>
                         </FormControl>
-                        <Button m='3'
-                            type="submit"
-                            onClick={post}
-                            isLoading={isTxPending}
-                            bg='#e5ffbd'
-                            textColor='#00501e'
-                            _hover={{
-                                backgroundColor: '#89e401'
-                            }}
-                            colorScheme='gray' variant='solid'
-                            // isLoading={isSearching}
-                            loadingText='Loading' spinnerPlacement='start'>
-                            Post
-                        </Button>
-                        <Button m='3'
-                            onClick={() => setIsPreviewVisible(!isPreviewVisible)}
-                            bg='#e5ffbd'
-                            textColor='#00501e'
-                            _hover={{
-                                backgroundColor: '#89e401'
-                            }}
-                            colorScheme='gray' variant='solid'
-                            // isLoading={isSearching}
-                            loadingText='Loading' spinnerPlacement='start'>
-                            {isPreviewVisible ? 'Hide Preview' : 'Preview'}
-                        </Button>
+                        <Flex direction='row'>
+                            <Button m='3'
+                                onClick={() => setIsPreviewVisible(!isPreviewVisible)}
+                                bg='#e5ffbd'
+                                textColor='#00501e'
+                                _hover={{
+                                    backgroundColor: '#89e401'
+                                }}
+                                colorScheme='gray' variant='solid'
+                            >
+                                {isPreviewVisible ? 'Hide Preview' : 'Show Preview'}
+                            </Button>
+                            <Spacer />
+                            <Button m='3'
+                                type="submit"
+                                onClick={post}
+                                isLoading={isTxPending}
+                                bg='#e5ffbd'
+                                textColor='#00501e'
+                                _hover={{
+                                    backgroundColor: '#89e401'
+                                }}
+                                colorScheme='gray' variant='solid'
+                                loadingText='Loading' spinnerPlacement='start'
+                                alignSelf='flex-end'
+                            >
+                                Post
+                            </Button>
+                        </Flex>
                     </form>
                 </Flex>
                 {
