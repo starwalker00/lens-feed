@@ -1,9 +1,8 @@
 import { Box, Center, Flex, Image, Text, WrapItem, VStack, HStack, Spacer, Heading, Tooltip } from '@chakra-ui/react'
-import ReactTimeAgo from 'react-time-ago'
-import PostItemRawdataModal from './PostItemRawdataModal'
 import parseDataURL from 'data-urls'
 import { labelToName, decode } from 'whatwg-encoding'
 import DOMPurify from 'isomorphic-dompurify'
+import PostItemTitle from './PostItemTitle'
 
 function PostItem({ postData }) {
     // console.log(`postData: ${JSON.stringify(postData)}`)
@@ -80,29 +79,7 @@ function PostItem({ postData }) {
         //     {postData.pubId} {' '} {postData.profileId.handle}
         // </Flex>
         <Flex direction='column' wrap='wrap' shadow='xl' borderWidth='1px' bg='white'>
-            <Flex className='postTitle' p='1' ml='4' w='100%' alignItems='center' alignSelf='flex-start' direction='row'>
-                <Heading
-                    fontSize='lg'
-                    _hover={{
-                        textDecoration: 'underline',
-                        // cursor: 'pointer'
-                    }}
-                >
-                    <Tooltip px='2px' whiteSpace='nowrap' label={owner} placement='top'>
-                        {name}
-                    </Tooltip>
-                </Heading>
-                <Text fontSize='xs' mx='5px'>
-                    ·
-                </Text>
-                <Text fontSize='xs'>
-                    <ReactTimeAgo date={timestamp * 1000} locale="en-US" timeStyle="twitter" />
-                </Text>
-                <Spacer />
-                <Box mr='4'>
-                    <PostItemRawdataModal post={postData} />
-                </Box>
-            </Flex>
+            <PostItemTitle postData={postData} />
             <Flex className='postContent' px='5' py='5' justifyContent='center'>
                 {
                     mimeType.startsWith('text/plain') || mimeType === ''
