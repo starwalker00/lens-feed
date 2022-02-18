@@ -12,8 +12,11 @@ import {
     FormHelperText,
     Textarea
 } from '@chakra-ui/react'
+import { IconButton } from '@chakra-ui/react'
+import { RepeatIcon } from '@chakra-ui/icons'
 
 function PostCreator() {
+
     const [web3provider, setWeb3Provider] = useState(null);
     const [walletAddress, setWalletAddress] = useState("");
     const [chainId, setChainId] = useState(null);
@@ -258,11 +261,23 @@ function PostCreator() {
                                     onChange={(e) => setProfileIdValue(e.target.value)} />
                             </Flex>
                             <FormHelperText>You must own the profile to post with it.</FormHelperText>
-                            <Flex direction='column' width='100%' >
-                                <FormLabel mt='5' htmlFor='contentURI'>
-                                    Content URI
-                                    <HelpButtonAndModal size={'xs'} />
-                                </FormLabel>
+
+                            <Flex direction='column' width='100%' mt='3'>
+                                <Flex direction='row' width='100%' >
+                                    <FormLabel htmlFor='contentURI'>
+                                        Content URI
+                                        <HelpButtonAndModal size={'xs'} />
+                                    </FormLabel>
+                                    <Spacer />
+                                    <IconButton
+                                        onClick={() => setContentURIValue('data:,Hello World')}
+                                        colorScheme='yellow'
+                                        aria-label='Help'
+                                        size='xs'
+                                        ml='2'
+                                        icon={<RepeatIcon />}
+                                    />
+                                </Flex>
                                 <Textarea id='contentURI'
                                     bg='whiteAlpha'
                                     rows='1'
