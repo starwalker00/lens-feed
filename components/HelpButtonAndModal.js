@@ -1,5 +1,5 @@
-import { Box, Center, Flex, Image, Text, WrapItem, VStack, HStack, Spacer, Button, Container, Stack, Tooltip } from '@chakra-ui/react'
-import { QuestionOutlineIcon, CopyIcon, ChevronRightIcon } from '@chakra-ui/icons'
+import { Box, Center, Flex, Image, Text, WrapItem, VStack, HStack, Spacer, Button, Container, Stack, Tooltip, Link } from '@chakra-ui/react'
+import { QuestionOutlineIcon, CopyIcon, ChevronRightIcon, ExternalLinkIcon } from '@chakra-ui/icons'
 import { IconButton } from '@chakra-ui/react'
 import {
   Modal,
@@ -60,7 +60,7 @@ export default function HelpButtonAndModal() {
             <Text mt='3' fontSize='sm'>
               You must own the profileId you are trying to post with. This front-end does not provide a way to create a profile.
             </Text>
-            <Heading mt='10' mb='4' as='h6' size='md'>Supported front-end contentURI : </Heading>
+            <Heading mt='8' mb='4' as='h6' size='md'>Supported content URI : </Heading>
             <Text fontSize='md'>You can copy one of the following examples into the contentURI input box to post them.</Text>
             <List>
               <ListItem my='3'>Text in the following format :</ListItem>
@@ -76,6 +76,12 @@ export default function HelpButtonAndModal() {
                 }
               </List>
             </List>
+            <Text mt='3' fontSize='sm'>
+              Read more about URIs here :{' '}
+              <Link href='https://developer.mozilla.org/en-US/docs/Web/HTTP/Resources_and_URIs' isExternal>
+                MDN Web Docs : Resources and URIs <ExternalLinkIcon mx='2px' mb='4px' />
+              </Link>
+            </Text>
           </ModalBody>
           <ModalFooter>
             <Button colorScheme='blue' mr={3} onClick={onClose}>
