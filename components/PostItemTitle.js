@@ -1,5 +1,5 @@
 
-import { Box, Center, Flex, Image, Text, WrapItem, VStack, HStack, Spacer, Heading, Tooltip } from '@chakra-ui/react'
+import { Box, Center, Flex, Image, Text, WrapItem, VStack, HStack, Spacer, Heading, Tooltip, Avatar } from '@chakra-ui/react'
 import PostItemRawdataModal from './PostItemRawdataModal'
 import ReactTimeAgo from 'react-time-ago'
 
@@ -14,6 +14,7 @@ function PostItemTitle({ postData }) {
 
     return (
         <Flex className='postTitle' p='1' ml='4' w='100%' alignItems='center' alignSelf='flex-start' direction='row'>
+            <Avatar size='sm' ml='0' mr='3' mt='1' name={profileHandle} src={contentURI} />
             <Heading
                 fontSize='lg'
                 _hover={{
