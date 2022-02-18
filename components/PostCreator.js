@@ -175,7 +175,8 @@ function PostCreator() {
             id: 0,
             owner: '0x0000000000000000000000000000000000000000',
             handle: 'preview',
-            createdOn: Math.round(new Date().getTime() / 1000)
+            createdOn: Math.round(new Date().getTime() / 1000),
+            pubCount: 0
         },
         timestamp: Math.round(new Date().getTime() / 1000),
         contentURI: contentURIValue
