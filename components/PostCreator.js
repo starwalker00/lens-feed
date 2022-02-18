@@ -274,6 +274,7 @@ function PostCreator() {
                             </Flex>
                         </FormControl>
                         <Flex direction='row'>
+                            <Spacer />
                             <Button m='3'
                                 onClick={() => setIsPreviewVisible(!isPreviewVisible)}
                                 bg='#e5ffbd'
