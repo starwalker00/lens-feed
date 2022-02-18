@@ -66,7 +66,7 @@ function PostCreator() {
         // console.log(`chainId: ${JSON.stringify(chainId)}`)
     }, [chainId])
 
-    useEffect(() => {
+    useEffect(() => { // called on web3provider changed, on chainChanged and accountsChanged
         console.log(`useEffect web3provider`)
         const connectOnSetProvider = async () => {
             await web3provider.send("eth_requestAccounts", [])
@@ -91,7 +91,13 @@ function PostCreator() {
                 console.log(iter) // reached every valid index
             }
             setOwnedTokenIds(ownedTokenIds)
+            if (ownedTokenIds.length > 0) { // display the first tokenId to the user in the form
+                setProfileIdValue(ownedTokenIds[0])
+            } else {
+                setProfileIdValue('')
+            }
         }
+
         if (web3provider) {
             connectOnSetProvider().catch(console.error)
         }
