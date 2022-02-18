@@ -120,6 +120,7 @@ function PostCreator() {
         setChainId(null)
         setLensHubContract(null)
         setOwnedTokenIds([])
+        setProfileIdValue("")
     }
 
     async function post() {
