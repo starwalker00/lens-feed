@@ -234,7 +234,7 @@ function PostCreator() {
                     <Flex mt='-35px' mr='-35px' alignItems='baseline'>
                         <Heading as='h6' size='md' alignSelf='center'>Publish a post : </Heading>
                         <Spacer />
-                        <HelpButtonAndModal alignSelf='flex-end' />
+                        <HelpButtonAndModal size={'md'} />
                     </Flex>
                     <form style={{ width: "100%" }}
                         onSubmit={e => {
@@ -258,7 +258,10 @@ function PostCreator() {
                             </Flex>
                             <FormHelperText>You must own the profile to post with it.</FormHelperText>
                             <Flex direction='column' width='100%' >
-                                <FormLabel mt='5' htmlFor='contentURI'>Content URI</FormLabel>
+                                <FormLabel mt='5' htmlFor='contentURI'>
+                                    Content URI
+                                    <HelpButtonAndModal size={'xs'} />
+                                </FormLabel>
                                 <Textarea id='contentURI'
                                     bg='whiteAlpha'
                                     rows='1'

@@ -22,7 +22,8 @@ import {
 } from '@chakra-ui/react'
 import { useClipboard } from '@chakra-ui/react'
 import { useState, useEffect } from 'react'
-export default function HelpButtonAndModal() {
+
+export default function HelpButtonAndModal({ size }) {
   const stringExamples = [
     'data:,Hello World',
     'data:text/plain;base64,bGVucyBpbnB1dA==',
@@ -42,6 +43,8 @@ export default function HelpButtonAndModal() {
         onClick={onOpen}
         colorScheme='yellow'
         aria-label='Help'
+        size={size}
+        ml='2'
         icon={<QuestionOutlineIcon />}
       />
       <Modal size='xl2' isOpen={isOpen} onClose={onClose}>
