@@ -190,13 +190,7 @@ function PostCreator() {
                             chainId === 80001 ?
                                 ownedTokenIds.length > 0
                                     ? <Text>Owned profile ID :{' '}
-                                        {
-                                            ownedTokenIds.map((tokenId, index) => (
-                                                index !== ownedTokenIds.length - 1
-                                                    ? tokenId.concat(', ')
-                                                    : tokenId.concat('.')
-                                            ))
-                                        }
+                                        {ownedTokenIds.join(', ')}.
                                     </Text>
                                     : walletAddress === "" ? <Text></Text> : <Text>You do not own a Lens profile on this network. Create one before posting.</Text>
                                 : chainId ? <Text>Please connect to Polygon Mumbai Testnet.</Text> : <Text></Text>
