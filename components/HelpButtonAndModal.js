@@ -66,13 +66,13 @@ export default function HelpButtonAndModal({ size }) {
             <Heading mt='8' mb='4' as='h6' size='md'>Supported content URI : </Heading>
             <Text fontSize='md'>You can copy one of the following examples into the contentURI input box to post them.</Text>
             <List>
-              <ListItem my='3'>Text in the following format :</ListItem>
+              <ListItem my='3'><Text as='u' fontSize='md'>Text in the following format :</Text></ListItem>
               <List>
                 {
                   stringExamples.map((val, index) => <ListExample value={val} key={index} />)
                 }
               </List>
-              <ListItem my='3'>Images uploaded to the web :</ListItem>
+              <ListItem my='3'><Text as='u' fontSize='md'>Images uploaded to the web :</Text></ListItem>
               <List>
                 {
                   imageExamples.map((val, index) => <ListExample value={val} key={index} />)
