@@ -205,8 +205,13 @@ function PostCreator() {
                 </Flex>
 
                 <Flex direction='column' className='post-form' bg='#abfe2c' color='#00501e' p='40px' pb='10px' borderRadius='12px'>
-                    <Flex mt='-35px' mr='-35px' alignSelf='flex-end'>
+                    {/* <Flex mt='-35px' mr='-35px' alignSelf='flex-end'>
                         <HelpButtonAndModal />
+                    </Flex> */}
+                    <Flex mt='-35px' mr='-35px' alignItems='baseline'>
+                        <Heading as='h6' size='md' alignSelf='center'>Publish a post : </Heading>
+                        <Spacer />
+                        <HelpButtonAndModal alignSelf='flex-end' />
                     </Flex>
                     <form style={{ width: "100%" }}
                         onSubmit={e => {
