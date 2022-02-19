@@ -126,7 +126,7 @@ export default function ProfileCreatorDrawer({ isEnabled, signer, lensHubContrac
                 // border='1px'
                 borderColor='#00501e'
                 onClick={() => onOpenCreateProfile()}>
-                Create user
+                Create profile
             </Button>
             <Drawer
                 isOpen={isOpen}
