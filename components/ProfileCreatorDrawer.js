@@ -53,8 +53,8 @@ export default function ProfileCreatorDrawer({ isEnabled, signer, lensHubContrac
     const onAlertClose = () => setIsAlertOpen(false) // alert dialog
 
     async function createProfile() {
-        console.log(`profileHandleValue: ${profileHandleValue}`)
-        console.log(`imageURIValue: ${imageURIValue}`)
+        // console.log(`profileHandleValue: ${profileHandleValue}`)
+        // console.log(`imageURIValue: ${imageURIValue}`)
 
         if (walletAddress === "") {
             alert('Please connect your wallet.')
@@ -72,8 +72,8 @@ export default function ProfileCreatorDrawer({ isEnabled, signer, lensHubContrac
                 followNFTURI:
                     'https://ipfs.fleek.co/ipfs/ghostplantghostplantghostplantghostplantghostplantghostplan',
             };
-            console.log(inputStruct)
-            console.log(signer)
+            // console.log(inputStruct)
+            // console.log(signer)
             try { // call to contract post
                 const mockProfileCreationProxy = new ethers.Contract(addresses.MockProfileCreationProxy, abis.MockProfileCreationProxy, web3provider);
                 const tx = await mockProfileCreationProxy.connect(signer).proxyCreateProfile(inputStruct)
