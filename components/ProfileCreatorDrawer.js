@@ -161,7 +161,7 @@ export default function ProfileCreatorDrawer({ isEnabled, signer, lensHubContrac
                                         />
                                         <FormHelperText>
                                             Must be one unique word, Latin lowercase alphabet characters, or digits from 0 to 9.<br />
-                                            For instance : 'jackie', 'johndeere29', 'r0b0t'.
+                                            For instance : &lsquo;jackie&lsquo;, &lsquo;johndeere29&lsquo;, &lsquo;r0b0t&lsquo;.
                                         </FormHelperText>
                                     </FormControl>
                                 </Box>
