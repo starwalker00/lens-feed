@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react'
-import { Box, useToast, Input, Center, Flex, Image, Text, WrapItem, VStack, HStack, Spacer, Heading, Tooltip, Button } from '@chakra-ui/react'
+import { Box, useToast, Input, Center, Flex, Image, Text, WrapItem, VStack, HStack, Spacer, Heading, Tooltip, Button, Spinner } from '@chakra-ui/react'
 import { ethers } from "ethers";
 import { addresses, abis } from '../contracts';
 import HelpButtonAndModal from '../components/HelpButtonAndModal'
@@ -30,6 +30,7 @@ function PostCreator() {
 
     // const [isMetamaskError, setIsMetamaskError] = useState(false) // transaction status
     const [isTxPending, setIsTxPending] = useState(false) // transaction status
+    const [isLoadingOwnedIDs, setIsLoadingOwnedIDs] = useState(true) // contract queries
 
     // toast for tx feedback
     const [toastMessage, setToastMessage] = useState(undefined);
@@ -75,6 +76,7 @@ function PostCreator() {
         console.log(`useEffect web3provider`)
         const connectOnSetProvider = async () => {
             await web3provider.send("eth_requestAccounts", [])
+            setIsLoadingOwnedIDs(true) // prevent showing not updated IDs after profile creation
             const network = await web3provider.getNetwork()
             setChainId(network.chainId)
             const signer = web3provider.getSigner()
@@ -86,8 +88,8 @@ function PostCreator() {
 
             // get ownedTokenIds by connected address
             let ownedTokenIds = []
-            const MAX_TOKENID = 20
-            try {
+            const MAX_TOKENID = 42
+            try { // always caught
                 for (var iter = 0; iter < MAX_TOKENID; iter++) {
                     let tokenId = await lensHub.tokenOfOwnerByIndex(address, iter)
                     ownedTokenIds.push(tokenId.toNumber().toString())
@@ -95,6 +97,7 @@ function PostCreator() {
             } catch (error) {
                 console.log(iter) // reached every valid index
             }
+            setIsLoadingOwnedIDs(false)
             setOwnedTokenIds(ownedTokenIds)
             if (ownedTokenIds.length > 0) { // display the first tokenId to the user in the form
                 setProfileIdValue(ownedTokenIds[0])
@@ -227,10 +230,10 @@ function PostCreator() {
                             {
                                 chainId === 80001 ?
                                     ownedTokenIds.length > 0
-                                        ? <Flex><Text>Owned profile ID :{' '}
-                                            {ownedTokenIds.join(', ')}.
-                                        </Text></Flex>
-                                        : walletAddress === "" ? <Text></Text> : <Text>You do not own a Lens profile on this network. Create one before posting.</Text>
+                                        ? isLoadingOwnedIDs ? <HStack><Spinner size='sm' /><Text>Loading IDs</Text></HStack> : <Flex><Text>Owned profile ID :{' '}{ownedTokenIds.join(', ')}.</Text></Flex>
+                                        : walletAddress === ""
+                                            ? <Text></Text>
+                                            : isLoadingOwnedIDs ? <HStack><Spinner size='sm' /><Text>Loading IDs</Text></HStack> : <Text>You do not own a Lens profile on this network. Create one before posting.</Text>
                                     : chainId ? <Text>Please connect to Polygon Mumbai Testnet.</Text> : <Text></Text>
                             }
                         </Box>
