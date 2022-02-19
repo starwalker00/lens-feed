@@ -59,9 +59,7 @@ export default function HelpButtonAndModal({ size }) {
               <ListItem>Enter a content URI</ListItem>
               <ListItem>Click the Post button</ListItem>
             </OrderedList>
-            <Text mt='3' fontSize='sm'>
-              You must own the profileId you are trying to post with.
-            </Text>
+            <Text mt='3' fontSize='sm'>You must own the profileId you are trying to post with.</Text>
             <Heading mt='8' mb='4' as='h6' size='md'>Supported content URI : </Heading>
             <Text fontSize='md'>You can copy one of the following examples into the contentURI input box to post them.</Text>
             <List>
@@ -78,6 +76,16 @@ export default function HelpButtonAndModal({ size }) {
                 }
               </List>
             </List>
+            <Text mt='3' fontSize='sm'>
+              You can freely upload your images to{' '}
+              <Text as='span' fontWeight='semibold'><Link href='https://docs.ipfs.io/concepts/what-is-ipfs/#decentralization' isExternal>
+                IPFS{' '}<ExternalLinkIcon mx='2px' mb='4px' />
+              </Link></Text>
+              using{' '}
+              <Text as='span' fontWeight='semibold'><Link href='https://nft.storage/' isExternal>
+                NFT STORAGE <ExternalLinkIcon mx='2px' mb='4px' />
+              </Link></Text>
+            </Text>
             <Text mt='3' fontSize='sm'>
               Read more about URIs here :{' '}
               <Link href='https://developer.mozilla.org/en-US/docs/Web/HTTP/Resources_and_URIs' isExternal>
