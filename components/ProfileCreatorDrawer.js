@@ -135,11 +135,11 @@ export default function ProfileCreatorDrawer({ isEnabled, signer, lensHubContrac
                 onClose={onClose}
             >
                 <DrawerOverlay />
-                <form style={{ width: "100%" }}
+                <form
                     onSubmit={e => {
                         e.preventDefault();
                     }}>
-                    <DrawerContent>
+                    <DrawerContent style={{ maxWidth: "720px" }} alignItems='stretch' m='auto'>
                         <DrawerCloseButton />
                         <DrawerHeader borderBottomWidth='1px'>
                             Create a new Lens profile
@@ -147,11 +147,12 @@ export default function ProfileCreatorDrawer({ isEnabled, signer, lensHubContrac
 
                         <DrawerBody>
                             <Stack spacing='24px'>
-                                <Box>
+                                <Flex >
                                     <FormControl>
                                         <FormLabel htmlFor='profileHandle'>Name (handle)</FormLabel>
                                         <Input
-                                            autocomplete="off"
+                                            focusBorderColor='#00501e'
+                                            autoComplete="off"
                                             isRequired={true}
                                             ref={firstField}
                                             id='username'
@@ -164,13 +165,13 @@ export default function ProfileCreatorDrawer({ isEnabled, signer, lensHubContrac
                                             For instance : &lsquo;jackie&lsquo;, &lsquo;johndeere29&lsquo;, &lsquo;r0b0t&lsquo;.
                                         </FormHelperText>
                                     </FormControl>
-                                </Box>
+                                </Flex>
 
                                 <Box>
                                     <FormLabel htmlFor='imageURI'>Profile Picture (imageURI)</FormLabel>
                                     <Textarea id='imageURI'
                                         bg='whiteAlpha'
-                                        rows='1'
+                                        rows='2'
                                         focusBorderColor='#00501e'
                                         type='text'
                                         placeholder='data:,Hello World'
