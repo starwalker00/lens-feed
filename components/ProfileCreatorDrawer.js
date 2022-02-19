@@ -29,10 +29,11 @@ import {
     VStack,
     Avatar,
     Text,
+    Link,
     useToast
 } from '@chakra-ui/react'
 import { useState, useEffect, useRef } from 'react'
-import { AddIcon } from '@chakra-ui/icons'
+import { AddIcon, ExternalLinkIcon } from '@chakra-ui/icons'
 import { ethers } from "ethers";
 import { addresses, abis } from '../contracts';
 
@@ -191,10 +192,14 @@ export default function ProfileCreatorDrawer({ isEnabled, signer, lensHubContrac
                                             value={profileHandleValue}
                                             onChange={(e) => setProfileHandleValue(e.target.value)}
                                         />
-                                        <FormHelperText>
+                                        {/* <FormHelperText color='gray.500'>
                                             Must be one unique word, Latin lowercase alphabet characters, or digits from 0 to 9.<br />
                                             For instance : &lsquo;jackie&lsquo;, &lsquo;johndeere29&lsquo;, &lsquo;r0b0t&lsquo;.
-                                        </FormHelperText>
+                                        </FormHelperText> */}
+                                        <Text fontSize='sm' color='gray.500'>
+                                            Must be one unique word, Latin lowercase alphabet characters, or digits from 0 to 9.<br />
+                                            For instance : &lsquo;jackie&lsquo;, &lsquo;johndeere29&lsquo;, &lsquo;r0b0t&lsquo;.
+                                        </Text>
                                     </FormControl>
                                 </Flex>
 
@@ -208,6 +213,16 @@ export default function ProfileCreatorDrawer({ isEnabled, signer, lensHubContrac
                                         placeholder='data:,Hello World'
                                         value={imageURIValue}
                                         onChange={(e) => setImageURIValue(e.target.value)} />
+                                    <Text mt='1' fontSize='sm' color='gray.500'>
+                                        You can freely upload your images to{' '}
+                                        <Text as='span' fontWeight='semibold'><Link href='https://docs.ipfs.io/concepts/what-is-ipfs/#decentralization' isExternal>
+                                            IPFS{' '}<ExternalLinkIcon mx='2px' mb='4px' />
+                                        </Link></Text>
+                                        using{' '}
+                                        <Text as='span' fontWeight='semibold'><Link href='https://nft.storage/' isExternal>
+                                            NFT STORAGE <ExternalLinkIcon mx='2px' mb='4px' />
+                                        </Link></Text>
+                                    </Text>
                                 </Box>
                                 <Flex direction='column' alignItems='center'>
                                     {/* <Text alignSelf='flex-start'>Preview</Text> */}
