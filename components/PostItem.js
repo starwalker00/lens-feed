@@ -32,7 +32,7 @@ function PostItem({ postData }) {
         // </Flex>
         <Flex direction='column' wrap='wrap' shadow='xl' borderWidth='1px' bg='white'>
             <PostItemTitle postData={postData} />
-            <Flex className='postContent' px='5' py='5' justifyContent='center'>
+            <Flex className='postContent' px='5' py='5' justifyContent='center' maxHeight='600px' overflowY='auto'>
                 {
                     mimeType.startsWith('text/plain') || mimeType === ''
                         ? <Text fontSize='md'>{bodyDecoded}</Text>
