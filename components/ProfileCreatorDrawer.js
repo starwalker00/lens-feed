@@ -25,7 +25,8 @@ import {
     Flex,
     Heading,
     Center,
-    VStack
+    VStack,
+    useToast
 } from '@chakra-ui/react'
 import {
     AlertDialog,
@@ -49,8 +50,22 @@ export default function ProfileCreatorDrawer({ isEnabled, signer, lensHubContrac
 
     const [isTxPending, setIsTxPending] = useState(false) // transaction status
 
-    const [isAlertOpen, setIsAlertOpen] = useState(false) // alert dialog
-    const onAlertClose = () => setIsAlertOpen(false) // alert dialog
+    // toast for tx feedback
+    const [toastMessage, setToastMessage] = useState(undefined);
+    const toast = useToast();
+    useEffect(() => {
+        if (toastMessage) {
+            const { title, body, status } = toastMessage;
+            toast({
+                title: `${title}`,
+                description: `${body}`,
+                status: `${status}`,
+                position: 'top-right',
+                duration: 9000,
+                isClosable: true
+            });
+        }
+    }, [toastMessage, toast]);
 
     async function createProfile() {
         // console.log(`profileHandleValue: ${profileHandleValue}`)
@@ -78,29 +93,28 @@ export default function ProfileCreatorDrawer({ isEnabled, signer, lensHubContrac
                 const mockProfileCreationProxy = new ethers.Contract(addresses.MockProfileCreationProxy, abis.MockProfileCreationProxy, web3provider);
                 const tx = await mockProfileCreationProxy.connect(signer).proxyCreateProfile(inputStruct)
                 setIsTxPending(true)
-                await tx.wait()
+                const receipt = await tx.wait()
+                console.log(receipt)
                 setIsTxPending(false)
-                onClose()
-                connectWallet()
-                setIsAlertOpen(true)
-                // alert('Profile Created.')
+                onClose() // close drawer
+                connectWallet() // reload owned profile IDs
+                setToastMessage(
+                    {
+                        status: 'success',
+                        title: "Profile created",
+                        body: `The name ${profileHandleValue.toLowerCase()} may already exist.`
+                    }
+                )
             }
             catch (error) {
-                console.log(error)
-                // if (profileIdValue) {
-                //     setToastMessage(
-                //         {
-                //             title: "Transaction failed",
-                //             body: `Make sure you own profileId number ${profileIdValue}`
-                //         }
-                //     )
-                // } else {
-                //     setToastMessage(
-                //         {
-                //             title: "Transaction failed",
-                //             body: `Make sure you entered a profileId`
-                //         }
-                //     )
+                // console.log(error)
+                setToastMessage(
+                    {
+                        status: 'error',
+                        title: "Transaction failed",
+                        body: `The name ${profileHandleValue.toLowerCase()} may already exist.`
+                    }
+                )
             }
         }
     }
@@ -123,7 +137,6 @@ export default function ProfileCreatorDrawer({ isEnabled, signer, lensHubContrac
                     backgroundColor: '#89e401'
                 }}
                 colorScheme='gray' variant='solid'
-                // border='1px'
                 borderColor='#00501e'
                 onClick={() => onOpenCreateProfile()}>
                 Create profile
@@ -141,6 +154,7 @@ export default function ProfileCreatorDrawer({ isEnabled, signer, lensHubContrac
                     }}>
                     <DrawerContent style={{ maxWidth: "720px" }} alignItems='stretch' m='auto'>
                         <DrawerCloseButton />
+
                         <DrawerHeader borderBottomWidth='1px'>
                             Create a new Lens profile
                         </DrawerHeader>
@@ -205,35 +219,6 @@ export default function ProfileCreatorDrawer({ isEnabled, signer, lensHubContrac
                     </DrawerContent>
                 </form>
             </Drawer>
-
-            <AlertDialog
-                isOpen={isAlertOpen}
-                // isOpen={true}
-                onClose={onAlertClose}
-                status='success'
-            >
-                <AlertDialogOverlay>
-                    <AlertDialogContent>
-                        <AlertDialogBody>
-                            <VStack direction='column' alignItems='center' p='2' spacing='24px'>
-                                <Heading>Profile created</Heading>
-                                <Button
-                                    onClick={onAlertClose}
-                                    bg='#e5ffbd'
-                                    textColor='#00501e'
-                                    _hover={{
-                                        backgroundColor: '#89e401'
-                                    }}
-                                    colorScheme='gray' variant='solid'
-                                >
-                                    Ok
-                                </Button>
-                            </VStack>
-                        </AlertDialogBody>
-                    </AlertDialogContent>
-                </AlertDialogOverlay>
-            </AlertDialog>
-
         </>
     )
 }
