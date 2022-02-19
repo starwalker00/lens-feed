@@ -22,7 +22,10 @@ import {
     InputLeftAddon,
     Select,
     Textarea,
-    Flex
+    Flex,
+    Heading,
+    Center,
+    VStack
 } from '@chakra-ui/react'
 import {
     AlertDialog,
@@ -45,6 +48,9 @@ export default function ProfileCreatorDrawer({ isEnabled, signer, lensHubContrac
     const [imageURIValue, setImageURIValue] = useState('https://ipfs.io/ipfs/bafkreicqwozpx36nx22scnrirfpfmdzt6fpiyw7zqx343lsvueda76cz5i') // input value
 
     const [isTxPending, setIsTxPending] = useState(false) // transaction status
+
+    const [isAlertOpen, setIsAlertOpen] = useState(false) // alert dialog
+    const onAlertClose = () => setIsAlertOpen(false) // alert dialog
 
     async function createProfile() {
         console.log(`profileHandleValue: ${profileHandleValue}`)
@@ -76,7 +82,8 @@ export default function ProfileCreatorDrawer({ isEnabled, signer, lensHubContrac
                 setIsTxPending(false)
                 onClose()
                 connectWallet()
-                alert('Profile Created.')
+                setIsAlertOpen(true)
+                // alert('Profile Created.')
             }
             catch (error) {
                 console.log(error)
@@ -124,7 +131,7 @@ export default function ProfileCreatorDrawer({ isEnabled, signer, lensHubContrac
             <Drawer
                 isOpen={isOpen}
                 placement='bottom'
-                // initialFocusRef={firstField}
+                initialFocusRef={firstField}
                 onClose={onClose}
             >
                 <DrawerOverlay />
@@ -144,6 +151,8 @@ export default function ProfileCreatorDrawer({ isEnabled, signer, lensHubContrac
                                     <FormControl>
                                         <FormLabel htmlFor='profileHandle'>Name (handle)</FormLabel>
                                         <Input
+                                            autocomplete="off"
+                                            isRequired={true}
                                             ref={firstField}
                                             id='username'
                                             placeholder='Please enter a user name'
@@ -151,8 +160,8 @@ export default function ProfileCreatorDrawer({ isEnabled, signer, lensHubContrac
                                             onChange={(e) => setProfileHandleValue(e.target.value)}
                                         />
                                         <FormHelperText>
-                                            Must be one word, Latin lowercase alphabet characters, or digits from 0 to 9 <br />
-                                            For instance : 'jackie', 'johndeere29', 'r0b0t'
+                                            Must be one unique word, Latin lowercase alphabet characters, or digits from 0 to 9.<br />
+                                            For instance : 'jackie', 'johndeere29', 'r0b0t'.
                                         </FormHelperText>
                                     </FormControl>
                                 </Box>
@@ -195,6 +204,35 @@ export default function ProfileCreatorDrawer({ isEnabled, signer, lensHubContrac
                     </DrawerContent>
                 </form>
             </Drawer>
+
+            <AlertDialog
+                isOpen={isAlertOpen}
+                // isOpen={true}
+                onClose={onAlertClose}
+                status='success'
+            >
+                <AlertDialogOverlay>
+                    <AlertDialogContent>
+                        <AlertDialogBody>
+                            <VStack direction='column' alignItems='center' p='2' spacing='24px'>
+                                <Heading>Profile created</Heading>
+                                <Button
+                                    onClick={onAlertClose}
+                                    bg='#e5ffbd'
+                                    textColor='#00501e'
+                                    _hover={{
+                                        backgroundColor: '#89e401'
+                                    }}
+                                    colorScheme='gray' variant='solid'
+                                >
+                                    Ok
+                                </Button>
+                            </VStack>
+                        </AlertDialogBody>
+                    </AlertDialogContent>
+                </AlertDialogOverlay>
+            </AlertDialog>
+
         </>
     )
 }
