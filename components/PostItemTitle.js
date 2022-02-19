@@ -31,7 +31,7 @@ function PostItemTitle({ postData }) {
 
             <Avatar size='sm' ml='0' mr='3' mt='1' name={profileHandle} src={imageURI} />
 
-            <Popover placement='top-end'>
+            <Popover placement='top-end' trigger="hover">
                 <PopoverTrigger>
                     <Heading
                         fontSize='lg'
