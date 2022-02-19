@@ -20,7 +20,7 @@ function PostItemTitle({ postData }) {
     const profileHandle = postData.profileId.handle
     const owner = postData.profileId.owner
     const timestamp = postData.timestamp
-    const name = profileHandle.concat('#', profileId)
+    // const name = profileHandle.concat('#', profileId)
     const contentURI = postData.contentURI
     const pubCount = postData.profileId.pubCount
     const imageURI = postData.profileId.imageURI
@@ -34,13 +34,14 @@ function PostItemTitle({ postData }) {
             <Popover placement='top-end' trigger="hover">
                 <PopoverTrigger>
                     <Heading
+                        letterSpacing='0.02em'
                         fontSize='lg'
                         _hover={{
                             textDecoration: 'underline',
                             cursor: 'pointer'
                         }}
                     >
-                        {name}
+                        {profileHandle}<Text as='span' letterSpacing='0.00em' opacity='80%'>#{profileId}</Text>
                     </Heading >
                 </PopoverTrigger>
                 <PopoverContent>

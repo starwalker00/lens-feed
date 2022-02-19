@@ -214,13 +214,10 @@ export default function ProfileCreatorDrawer({ isEnabled, signer, lensHubContrac
                                     <Flex direction='row' alignItems='center'>
                                         <Avatar size='lg' ml='0' mr='5' mt='1' name={previewProfile.handle} src={previewProfile.imageURI} />
                                         <Heading
+                                            letterSpacing='0.02em'
                                             fontSize='lg'
-                                        // _hover={{
-                                        //     textDecoration: 'underline',
-                                        //     cursor: 'pointer'
-                                        // }}
                                         >
-                                            {previewProfile.handle}#{previewProfile.profileID}
+                                            {previewProfile.handle}<Text as='span' letterSpacing='0.00em' opacity='80%'>#{previewProfile.profileID}</Text>
                                         </Heading >
                                     </Flex>
                                 </Flex>
