@@ -60,7 +60,7 @@ export default function HelpButtonAndModal({ size }) {
               <ListItem>Click the Post button</ListItem>
             </OrderedList>
             <Text mt='3' fontSize='sm'>
-              You must own the profileId you are trying to post with. This front-end does not provide a way to create a profile.
+              You must own the profileId you are trying to post with.
             </Text>
             <Heading mt='8' mb='4' as='h6' size='md'>Supported content URI : </Heading>
             <Text fontSize='md'>You can copy one of the following examples into the contentURI input box to post them.</Text>
