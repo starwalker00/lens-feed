@@ -14,6 +14,7 @@ import {
 } from '@chakra-ui/react'
 import { IconButton } from '@chakra-ui/react'
 import { RepeatIcon } from '@chakra-ui/icons'
+import ProfileCreatorDrawer from '../components/ProfileCreatorDrawer'
 
 function PostCreator() {
 
@@ -131,7 +132,7 @@ function PostCreator() {
         // console.log(`profileIdValue: ${ profileIdValue }`)
         // console.log(`contentURIValue: ${ contentURIValue }`)
         if (walletAddress === "") {
-            alert('Please connect your wallet.')
+            alert('Please connect your wallet to a compatible network.')
         }
         else if (chainId !== 80001) {
             alert('Please change network to Polygon Mumbai Testnet.')
@@ -221,17 +222,28 @@ function PostCreator() {
                                 : <Text>{walletAddress}</Text>
                         }
                     </Box>
-                    <Box>
-                        {
-                            chainId === 80001 ?
-                                ownedTokenIds.length > 0
-                                    ? <Text>Owned profile ID :{' '}
-                                        {ownedTokenIds.join(', ')}.
-                                    </Text>
-                                    : walletAddress === "" ? <Text></Text> : <Text>You do not own a Lens profile on this network. Create one before posting.</Text>
-                                : chainId ? <Text>Please connect to Polygon Mumbai Testnet.</Text> : <Text></Text>
-                        }
-                    </Box>
+                    <Flex direction='column' alignItems='center'>
+                        <Box pb='2'>
+                            {
+                                chainId === 80001 ?
+                                    ownedTokenIds.length > 0
+                                        ? <Flex><Text>Owned profile ID :{' '}
+                                            {ownedTokenIds.join(', ')}.
+                                        </Text></Flex>
+                                        : walletAddress === "" ? <Text></Text> : <Text>You do not own a Lens profile on this network. Create one before posting.</Text>
+                                    : chainId ? <Text>Please connect to Polygon Mumbai Testnet.</Text> : <Text></Text>
+                            }
+                        </Box>
+                        <ProfileCreatorDrawer
+                            walletAddress={walletAddress}
+                            chainId={chainId}
+                            lensHubContract={lensHubContract}
+                            signer={signer}
+                            web3provider={web3provider}
+                            isEnabled={chainId === 80001 && walletAddress !== "" && lensHubContract}
+                            connectWallet={connectWallet} />
+                    </Flex>
+
                 </Flex>
 
                 <Flex direction='column' className='post-form' bg='#abfe2c' color='#00501e' p='40px' pb='10px' borderRadius='12px'>
