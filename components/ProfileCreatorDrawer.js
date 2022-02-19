@@ -95,14 +95,18 @@ export default function ProfileCreatorDrawer({ isEnabled, signer, lensHubContrac
                 setIsTxPending(true)
                 const receipt = await tx.wait()
                 console.log(receipt)
+                const newProfileID = ethers.BigNumber.from(receipt?.logs[0]?.topics?.[3])?.toString()
                 setIsTxPending(false)
                 onClose() // close drawer
                 connectWallet() // reload owned profile IDs
+                const toastBody = newProfileID
+                    ? `${profileHandleValue.toLowerCase()} - ID #${newProfileID}`
+                    : ``
                 setToastMessage(
                     {
                         status: 'success',
                         title: "Profile created",
-                        body: `The name ${profileHandleValue.toLowerCase()} may already exist.`
+                        body: toastBody
                     }
                 )
             }
