@@ -86,7 +86,7 @@ function PostCreator() {
 
             // get ownedTokenIds by connected address
             let ownedTokenIds = []
-            const MAX_TOKENID = 10
+            const MAX_TOKENID = 20
             try {
                 for (var iter = 0; iter < MAX_TOKENID; iter++) {
                     let tokenId = await lensHub.tokenOfOwnerByIndex(address, iter)
