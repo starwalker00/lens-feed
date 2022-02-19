@@ -8,6 +8,7 @@ import {
     DrawerCloseButton,
     useDisclosure,
     Button,
+    HStack,
 
 } from '@chakra-ui/react'
 import {
@@ -26,15 +27,9 @@ import {
     Heading,
     Center,
     VStack,
+    Avatar,
+    Text,
     useToast
-} from '@chakra-ui/react'
-import {
-    AlertDialog,
-    AlertDialogBody,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogContent,
-    AlertDialogOverlay,
 } from '@chakra-ui/react'
 import { useState, useEffect, useRef } from 'react'
 import { AddIcon } from '@chakra-ui/icons'
@@ -131,6 +126,24 @@ export default function ProfileCreatorDrawer({ isEnabled, signer, lensHubContrac
             alert('Please connect your wallet to a compatible network.')
         }
     }
+
+    const previewProfileInit = {
+        handle: 'preview',
+        profileID: '000',
+        imageURI: imageURIValue
+    }
+    const [previewProfile, setPreviewProfile] = useState(previewProfileInit)
+    useEffect(() => { // called on every name or image URI change
+        const timer = setTimeout(() => { // avoid bouncing data fields 
+            setPreviewProfile({
+                ...previewProfile,
+                handle: profileHandleValue,
+                imageURI: imageURIValue
+            });
+        }, 500)
+        return () => clearTimeout(timer)
+    }, [profileHandleValue, imageURIValue])
+
     return (
         <>
             <Button
@@ -167,7 +180,7 @@ export default function ProfileCreatorDrawer({ isEnabled, signer, lensHubContrac
                             <Stack spacing='24px'>
                                 <Flex >
                                     <FormControl>
-                                        <FormLabel htmlFor='profileHandle'>Name (handle)</FormLabel>
+                                        <FormLabel fontWeight='semibold' htmlFor='profileHandle'>Name (handle) :</FormLabel>
                                         <Input
                                             focusBorderColor='#00501e'
                                             autoComplete="off"
@@ -186,7 +199,7 @@ export default function ProfileCreatorDrawer({ isEnabled, signer, lensHubContrac
                                 </Flex>
 
                                 <Box>
-                                    <FormLabel htmlFor='imageURI'>Profile Picture (imageURI)</FormLabel>
+                                    <FormLabel fontWeight='semibold' htmlFor='imageURI'>Profile Picture (imageURI) :</FormLabel>
                                     <Textarea id='imageURI'
                                         bg='whiteAlpha'
                                         rows='2'
@@ -196,6 +209,21 @@ export default function ProfileCreatorDrawer({ isEnabled, signer, lensHubContrac
                                         value={imageURIValue}
                                         onChange={(e) => setImageURIValue(e.target.value)} />
                                 </Box>
+                                <Flex direction='column' alignItems='center'>
+                                    {/* <Text alignSelf='flex-start'>Preview</Text> */}
+                                    <Flex direction='row' alignItems='center'>
+                                        <Avatar size='lg' ml='0' mr='5' mt='1' name={previewProfile.handle} src={previewProfile.imageURI} />
+                                        <Heading
+                                            fontSize='lg'
+                                        // _hover={{
+                                        //     textDecoration: 'underline',
+                                        //     cursor: 'pointer'
+                                        // }}
+                                        >
+                                            {previewProfile.handle}#{previewProfile.profileID}
+                                        </Heading >
+                                    </Flex>
+                                </Flex>
                             </Stack>
                         </DrawerBody>
 
