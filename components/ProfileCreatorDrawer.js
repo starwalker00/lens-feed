@@ -260,6 +260,7 @@ export default function ProfileCreatorDrawer({ isEnabled, signer, lensHubContrac
                                     type="submit"
                                     onClick={createProfile}
                                     isLoading={isTxPending}
+                                    isDisabled={isError}
                                     bg='#e5ffbd'
                                     textColor='#00501e'
                                     _hover={{
