@@ -36,6 +36,7 @@ import { useState, useEffect, useRef } from 'react'
 import { AddIcon, ExternalLinkIcon } from '@chakra-ui/icons'
 import { ethers } from "ethers";
 import { addresses, abis } from '../contracts';
+import { isaValidHandleFormat } from '../lib/validationHelper.js'
 
 export default function ProfileCreatorDrawer({ isEnabled, signer, lensHubContract, walletAddress, chainId, web3provider, connectWallet }) {
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -128,12 +129,14 @@ export default function ProfileCreatorDrawer({ isEnabled, signer, lensHubContrac
         }
     }
 
+    // preview profile
     const previewProfileInit = {
         handle: 'preview',
         profileID: '000',
         imageURI: imageURIValue
     }
     const [previewProfile, setPreviewProfile] = useState(previewProfileInit)
+    const [isError, setIsError] = useState(false)
     useEffect(() => { // called on every name or image URI change
         const timer = setTimeout(() => { // avoid bouncing data fields 
             setPreviewProfile({
@@ -141,6 +144,7 @@ export default function ProfileCreatorDrawer({ isEnabled, signer, lensHubContrac
                 handle: profileHandleValue,
                 imageURI: imageURIValue
             });
+            setIsError(!isaValidHandleFormat(profileHandleValue)) // form validation
         }, 500)
         return () => clearTimeout(timer)
     }, [profileHandleValue, imageURIValue])
@@ -180,10 +184,10 @@ export default function ProfileCreatorDrawer({ isEnabled, signer, lensHubContrac
                         <DrawerBody>
                             <Stack spacing='24px'>
                                 <Flex >
-                                    <FormControl>
+                                    <FormControl isInvalid={isError}>
                                         <FormLabel fontWeight='semibold' htmlFor='profileHandle'>Name (handle) :</FormLabel>
                                         <Input
-                                            focusBorderColor='#00501e'
+                                            focusBorderColor={isError ? '#FF0000' : '#00501e'}
                                             autoComplete="off"
                                             isRequired={true}
                                             ref={firstField}
@@ -196,10 +200,18 @@ export default function ProfileCreatorDrawer({ isEnabled, signer, lensHubContrac
                                             Must be one unique word, Latin lowercase alphabet characters, or digits from 0 to 9.<br />
                                             For instance : &lsquo;jackie&lsquo;, &lsquo;johndeere29&lsquo;, &lsquo;r0b0t&lsquo;.
                                         </FormHelperText> */}
-                                        <Text fontSize='sm' color='gray.500'>
-                                            Must be one unique word, Latin lowercase alphabet characters, or digits from 0 to 9.<br />
-                                            For instance : &lsquo;jackie&lsquo;, &lsquo;johndeere29&lsquo;, &lsquo;r0b0t&lsquo;.
-                                        </Text>
+                                        {isError
+                                            ?
+                                            <Text fontSize='sm' color='red'>
+                                                Must be one unique word, Latin lowercase alphabet characters, or digits from 0 to 9.<br />
+                                                For instance : &lsquo;jackie&lsquo;, &lsquo;johndeere29&lsquo;, &lsquo;r0b0t&lsquo;.
+                                            </Text>
+                                            :
+                                            <Text fontSize='sm' color='gray.500'>
+                                                Must be one unique word, Latin lowercase alphabet characters, or digits from 0 to 9.<br />
+                                                For instance : &lsquo;jackie&lsquo;, &lsquo;johndeere29&lsquo;, &lsquo;r0b0t&lsquo;.
+                                            </Text>
+                                        }
                                     </FormControl>
                                 </Flex>
 
