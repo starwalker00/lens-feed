@@ -11,6 +11,7 @@ import { Container, Box, Heading, Text, Link, Flex } from '@chakra-ui/react'
 import { Spinner } from '@chakra-ui/react'
 import ProfilePagePostList from '../../components/ProfilePagePostList'
 import PostCreator from '../../components/PostCreator'
+import { ArrowBackIcon } from '@chakra-ui/icons'
 import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en.json'
 TimeAgo.addDefaultLocale(en)
@@ -38,12 +39,15 @@ export default function Profile({ results, profileHandle }) {
                         <PostCreator />
                     </Box> */}
             {/* {console.log(`fallbackData : ${JSON.stringify(fallbackData)}`)} */}
+            <Box w='100%' mx='4px'>
+                <Link href='/'><ArrowBackIcon w={8} h={8} />Go back</Link>
+            </Box>
             <Box w='100%' m="20px auto" textAlign="center">
                 <Heading as="h2" size="lg">
                     Posts of {profileHandle}
                 </Heading>
             </Box>
-            {isFallback // page is laoding
+            {isFallback // page is loading
                 ?
                 <Flex p='4' direction='column' alignItems='center'>
                     <Flex p='4'>
