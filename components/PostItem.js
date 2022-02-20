@@ -1,6 +1,6 @@
 import { Box, Center, Flex, Image, Text, WrapItem, VStack, HStack, Spacer, Heading, Tooltip } from '@chakra-ui/react'
 import PostItemTitle from './PostItemTitle'
-import { resolveContentURI } from '../lib/URIhelper.js'
+import { resolveContentURI } from '../lib/validationHelper.js'
 
 function PostItem({ postData }) {
     // console.log(`postData: ${JSON.stringify(postData)}`)
