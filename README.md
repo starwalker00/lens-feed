@@ -8,6 +8,7 @@
 - https://css-tricks.com/snippets/css/a-guide-to-flexbox/
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Identifying_resources_on_the_Web
 - https://docs.ethers.io/v5
+- https://static-tweet.vercel.app/
 
 URI management:
 
