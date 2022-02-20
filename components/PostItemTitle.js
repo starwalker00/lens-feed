@@ -53,7 +53,11 @@ function PostItemTitle({ postData }) {
                     <PopoverHeader>
                         <Flex direction='row' alignItems='center'>
                             <Avatar size='sm' ml='0' mr='3' mt='1' name={profileHandle} src={imageURI} />
-                            <Heading fontSize='md'>{profileHandle} – ID #{profileId}</Heading >
+                            <Heading fontSize='md'>
+                                <NextLink href={'/profile/'.concat(profileHandle)} passHref>
+                                    <Link>{profileHandle} – ID #{profileId}</Link>
+                                </NextLink>
+                            </Heading >
                         </Flex>
                     </PopoverHeader>
                     <PopoverBody>
