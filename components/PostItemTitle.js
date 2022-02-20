@@ -1,5 +1,5 @@
 
-import { Box, Center, Flex, Image, Text, WrapItem, VStack, HStack, Spacer, Heading, Tooltip, Avatar } from '@chakra-ui/react'
+import { Box, Center, Flex, Image, Text, WrapItem, VStack, HStack, Spacer, Heading, Tooltip, Avatar, Link } from '@chakra-ui/react'
 import PostItemRawdataModal from './PostItemRawdataModal'
 import ReactTimeAgo from 'react-time-ago'
 import {
@@ -13,6 +13,7 @@ import {
     PopoverCloseButton,
     PopoverAnchor,
 } from '@chakra-ui/react'
+import NextLink from "next/link"
 
 function PostItemTitle({ postData }) {
 
@@ -41,7 +42,9 @@ function PostItemTitle({ postData }) {
                             cursor: 'pointer'
                         }}
                     >
-                        {profileHandle}<Text as='span' letterSpacing='0.00em' opacity='80%'>#{profileId}</Text>
+                        <NextLink href={'/profile/'.concat(profileHandle)} passHref>
+                            <Link>{profileHandle}<Text as='span' letterSpacing='0.00em' opacity='80%'>#{profileId}</Text></Link>
+                        </NextLink>
                     </Heading >
                 </PopoverTrigger>
                 <PopoverContent>

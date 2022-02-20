@@ -28,7 +28,7 @@ export default function Profile({ results, profileHandle }) {
             </Head>
             <Box w='100%' m="20px auto" textAlign="center">
                 <Heading as="h1" size="xl">
-                    Lens feed
+                    <Link href='/'>Lens feed</Link>
                 </Heading>
                 <Text fontSize='lg' mt="10px" letterSpacing='.12rem'>
                     global feed of posts on Lens Protocol
